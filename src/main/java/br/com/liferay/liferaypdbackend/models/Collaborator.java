@@ -23,14 +23,17 @@ public class Collaborator {
 
     private Boolean isAdministrator;
 
+    private String jobRole;
+
     private Integer annualVolunteerHourGoal = 40;
 
     private Double annualDonationMoney = 2000.0;
     //endregion
 
     //region CONSTRUCTORS
-    public Collaborator(String name, Boolean isAdministrator) {
+    public Collaborator(String name, String jobRole, Boolean isAdministrator) {
         this.name = name;
+        this.jobRole = jobRole;
         this.isAdministrator = isAdministrator;
     }
     //endregion
