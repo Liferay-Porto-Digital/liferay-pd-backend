@@ -1,5 +1,7 @@
-package br.com.liferay.liferaypdbackend.models;
+package br.com.liferay.liferaypdbackend.models.product;
 
+import br.com.liferay.liferaypdbackend.models.Collaborator;
+import br.com.liferay.liferaypdbackend.models.Institution;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,8 +12,6 @@ import java.util.UUID;
 /**
  * Model class for all forms
  */
-@Entity
-@Table(name = "Form")
 @Data
 public abstract class Form {
     //region VARIABLES
@@ -19,9 +19,9 @@ public abstract class Form {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    private UUID idCollaborator;
+    private Collaborator Collaborator;
 
-    private UUID idInstitution;
+    private Institution Institution;
 
 //    TODO: Analyse better implementation of the following logic
 //    @ElementCollection
@@ -33,24 +33,26 @@ public abstract class Form {
     private LocalDateTime dateOfCreation;
 
     private LocalDate dateOfEvent;
-     
+
     private String nameContact;
-     
+
     private String lastNameContact;
+
+    private String type;
+
+    private double value;
     //endregion
 
     //region CONSTRUCTORS
-    public Form(Collaborator formCreator, Institution destinedInstitution, String nameOfContact, String lastNameOfContact,LocalDate dateOfEvent) {
+    public Form(String typeOfForm, Collaborator formCreator, Institution destinedInstitution, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
         this.dateOfCreation = LocalDateTime.now();
-        this.idCollaborator = formCreator.getId();
-        this.idInstitution = destinedInstitution.getId();
+        this.Collaborator = formCreator;
+        this.Institution = destinedInstitution;
         this.nameContact = nameOfContact;
         this.lastNameContact = lastNameOfContact;
         this.dateOfEvent = dateOfEvent;
-    }
-
-    public Form() {
-        this.dateOfCreation = LocalDateTime.now();
+        this.type = typeOfForm.toLowerCase().trim().replace(" ", "");
+        this.value = value;
     }
     //endregion
 }
