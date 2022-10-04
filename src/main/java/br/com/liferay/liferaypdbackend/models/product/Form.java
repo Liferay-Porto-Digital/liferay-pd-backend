@@ -3,6 +3,7 @@ package br.com.liferay.liferaypdbackend.models.product;
 import br.com.liferay.liferaypdbackend.models.Collaborator;
 import br.com.liferay.liferaypdbackend.models.Institution;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,16 +13,19 @@ import java.util.UUID;
 /**
  * Model class for all forms
  */
+@Entity
+@Table(name = "Form")
 @Data
+@NoArgsConstructor
 public abstract class Form {
     //region VARIABLES
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    private Collaborator Collaborator;
+    private UUID Collaborator;
 
-    private Institution Institution;
+    private UUID Institution;
 
 //    TODO: Analyse better implementation of the following logic
 //    @ElementCollection
@@ -46,8 +50,8 @@ public abstract class Form {
     //region CONSTRUCTORS
     public Form(String typeOfForm, Collaborator formCreator, Institution destinedInstitution, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
         this.dateOfCreation = LocalDateTime.now();
-        this.Collaborator = formCreator;
-        this.Institution = destinedInstitution;
+        this.Collaborator = formCreator.getId();
+        this.Institution = destinedInstitution.getId();
         this.nameContact = nameOfContact;
         this.lastNameContact = lastNameOfContact;
         this.dateOfEvent = dateOfEvent;
