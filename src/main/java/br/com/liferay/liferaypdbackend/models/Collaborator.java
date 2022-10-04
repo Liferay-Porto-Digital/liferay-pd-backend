@@ -27,7 +27,7 @@ public class Collaborator {
 
     private Integer annualVolunteerHourGoal = 40;
 
-    private Double annualDonationMoney = 2000.0;
+    private Double annualDonationMoney = 1000.0;
     //endregion
 
     //region CONSTRUCTORS
