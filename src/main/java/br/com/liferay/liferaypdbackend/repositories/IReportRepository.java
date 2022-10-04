@@ -1,11 +1,11 @@
 package br.com.liferay.liferaypdbackend.repositories;
 
-import br.com.liferay.liferaypdbackend.models.Solicitation;
+import br.com.liferay.liferaypdbackend.models.Report;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface ISolicitation extends JpaRepository<Solicitation, UUID> {
+public interface IReportRepository extends JpaRepository<Report, UUID> {
 }
