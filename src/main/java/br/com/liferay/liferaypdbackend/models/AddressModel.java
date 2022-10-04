@@ -10,10 +10,10 @@ import java.util.UUID;
  * Class that represents institution's address
  */
 @Entity
-@Table(name = "Address")
+@Table(name = "AddressModel")
 @Data
 @NoArgsConstructor
-public class Address {
+public class AddressModel {
     //region VARIABLES
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,7 +33,7 @@ public class Address {
     //endregion
 
     //region CONSTRUCTORS
-    public Address(String street, String city, String state, String number, String zipCode) {
+    public AddressModel(String street, String city, String state, String number, String zipCode) {
         this.street = street;
         this.city = city;
         this.state = state;

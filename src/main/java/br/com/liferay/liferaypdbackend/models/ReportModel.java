@@ -1,7 +1,7 @@
 package br.com.liferay.liferaypdbackend.models;
 
-import br.com.liferay.liferaypdbackend.models.concreteProduct.ActivityForm;
-import br.com.liferay.liferaypdbackend.models.concreteProduct.DonationForm;
+import br.com.liferay.liferaypdbackend.models.concreteProduct.ActivityFormModel;
+import br.com.liferay.liferaypdbackend.models.concreteProduct.DonationFormModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,10 +12,10 @@ import java.util.UUID;
  * Class that represents the reports
  */
 @Entity
-@Table(name = "Report")
+@Table(name = "ReportModel")
 @Data
 @NoArgsConstructor
-public class Report {
+public class ReportModel {
     //region VARIABLES
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,11 +31,11 @@ public class Report {
     //endregion
 
     //region CONSTRUCTORS
-    public Report(Collaborator administrator, DonationForm donationForm, ActivityForm activityForm, Institution institution) {
+    public ReportModel(CollaboratorModel administrator, DonationFormModel donationFormModel, ActivityFormModel activityFormModel, InstitutionModel institutionModel) {
         this.idAdministrator = (administrator.getIsAdministrator()) ? administrator.getId() : null;
-        this.idDonation = donationForm.getId();
-        this.idActivity = activityForm.getId();
-        this.idInstitution = institution.getId();
+        this.idDonation = donationFormModel.getId();
+        this.idActivity = activityFormModel.getId();
+        this.idInstitution = institutionModel.getId();
     }
     //endregion
 }

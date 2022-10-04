@@ -10,10 +10,10 @@ import java.util.UUID;
  * Model class for the users
  */
 @Entity
-@Table(name = "Collaborator")
+@Table(name = "CollaboratorModel")
 @Data
 @NoArgsConstructor
-public class Collaborator {
+public class CollaboratorModel {
     //region VARIABLES
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +31,7 @@ public class Collaborator {
     //endregion
 
     //region CONSTRUCTORS
-    public Collaborator(String name, String jobRole, Boolean isAdministrator) {
+    public CollaboratorModel(String name, String jobRole, Boolean isAdministrator) {
         this.name = name;
         this.jobRole = jobRole;
         this.isAdministrator = isAdministrator;

@@ -10,10 +10,10 @@ import java.util.UUID;
  * Class that represents the institutions
  */
 @Entity
-@Table(name = "Institution")
+@Table(name = "InstitutionModel")
 @Data
 @NoArgsConstructor
-public class Institution {
+public class InstitutionModel {
     //region VARIABLES
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,8 +38,8 @@ public class Institution {
     //endregion
 
     //region CONSTRUCTORS
-    public Institution(Address address, String name, String registrationNumber, String phoneNumber, String email, String url, String description) {
-        this.idAddress = address.getId();
+    public InstitutionModel(AddressModel addressModel, String name, String registrationNumber, String phoneNumber, String email, String url, String description) {
+        this.idAddress = addressModel.getId();
         this.name = name;
         this.registrationNumber = registrationNumber;
         this.phoneNumber = phoneNumber;
