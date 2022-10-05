@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface IForm extends JpaRepository<Form, UUID> {
+public interface IFormRepository extends JpaRepository<Form, UUID> {
 }

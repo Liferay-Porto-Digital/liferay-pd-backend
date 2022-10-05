@@ -1,7 +1,7 @@
 package br.com.liferay.liferaypdbackend.models.product;
 
-import br.com.liferay.liferaypdbackend.models.Collaborator;
-import br.com.liferay.liferaypdbackend.models.Institution;
+import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
+import br.com.liferay.liferaypdbackend.models.InstitutionModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -48,10 +48,10 @@ public abstract class Form {
     //endregion
 
     //region CONSTRUCTORS
-    public Form(String typeOfForm, Collaborator formCreator, Institution destinedInstitution, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
+    public Form(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
         this.dateOfCreation = LocalDateTime.now();
         this.Collaborator = formCreator.getId();
-        this.Institution = destinedInstitution.getId();
+        this.Institution = destinedInstitutionModel.getId();
         this.nameContact = nameOfContact;
         this.lastNameContact = lastNameOfContact;
         this.dateOfEvent = dateOfEvent;
