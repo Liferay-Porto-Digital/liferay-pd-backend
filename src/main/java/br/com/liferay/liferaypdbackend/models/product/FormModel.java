@@ -14,10 +14,10 @@ import java.util.UUID;
  * Model class for all forms
  */
 @Entity
-@Table(name = "Form")
+@Table(name = "FormModel")
 @Data
 @NoArgsConstructor
-public abstract class Form {
+public abstract class FormModel {
     //region VARIABLES
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,7 +48,7 @@ public abstract class Form {
     //endregion
 
     //region CONSTRUCTORS
-    public Form(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
+    public FormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
         this.dateOfCreation = LocalDateTime.now();
         this.Collaborator = formCreator.getId();
         this.Institution = destinedInstitutionModel.getId();

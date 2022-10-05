@@ -21,7 +21,7 @@ public class LiferayPdBackendApplication implements CommandLineRunner {
     public void run(String... args) throws Exception
     {
         if (collaboratorRepository.findAll().isEmpty()) {
-            CollaboratorModel first = new CollaboratorModel("Amanda", "HR Manager", true);
+            CollaboratorModel first = new CollaboratorModel("Maria", "Auxiliar Administrativo", true);
             collaboratorRepository.save(first);
         }
     }
