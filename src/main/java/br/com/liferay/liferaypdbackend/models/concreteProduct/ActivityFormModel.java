@@ -9,9 +9,9 @@ import java.time.LocalDate;
 /**
  * Class that represents activity forms
  */
-public class ActivityFormModelModel extends FormModel {
+public class ActivityFormModel extends FormModel {
     //region CONSTRUCTORS
-    public ActivityFormModelModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
+    public ActivityFormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
         super(typeOfForm, formCreator, destinedInstitutionModel, nameOfContact, lastNameOfContact, dateOfEvent, value);
     }
     //endregion

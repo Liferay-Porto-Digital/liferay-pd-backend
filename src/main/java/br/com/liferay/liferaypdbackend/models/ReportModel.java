@@ -1,7 +1,7 @@
 package br.com.liferay.liferaypdbackend.models;
 
-import br.com.liferay.liferaypdbackend.models.concreteProduct.ActivityFormModelModel;
-import br.com.liferay.liferaypdbackend.models.concreteProduct.DonationFormModelModel;
+import br.com.liferay.liferaypdbackend.models.concreteProduct.ActivityFormModel;
+import br.com.liferay.liferaypdbackend.models.concreteProduct.DonationFormModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -31,7 +31,7 @@ public class ReportModel {
     //endregion
 
     //region CONSTRUCTORS
-    public ReportModel(CollaboratorModel administrator, DonationFormModelModel donationFormModel, ActivityFormModelModel activityFormModel, InstitutionModel institutionModel) {
+    public ReportModel(CollaboratorModel administrator, DonationFormModel donationFormModel, ActivityFormModel activityFormModel, InstitutionModel institutionModel) {
         this.idAdministrator = (administrator.getIsAdministrator()) ? administrator.getId() : null;
         this.idDonation = donationFormModel.getId();
         this.idActivity = activityFormModel.getId();
