@@ -16,6 +16,7 @@ public class LiferayPdBackendApplication implements CommandLineRunner {
         SpringApplication.run(LiferayPdBackendApplication.class, args);
     }
 
+    // TODO: See if the following logic should be implemented in somewhere else
     @Override
     public void run(String... args) throws Exception
     {
