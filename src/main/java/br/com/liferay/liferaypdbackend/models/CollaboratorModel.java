@@ -19,14 +19,19 @@ public class CollaboratorModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private Boolean isAdministrator;
 
+    @Column(nullable = false)
     private String jobRole;
 
+    @Column(nullable = false)
     private Integer annualVolunteerHourGoal = 40;
 
+    @Column(nullable = false)
     private Double annualDonationMoney = 1000.0;
     //endregion
 

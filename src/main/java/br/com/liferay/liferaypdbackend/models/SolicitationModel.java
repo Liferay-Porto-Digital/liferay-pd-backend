@@ -21,12 +21,16 @@ public class SolicitationModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(nullable = false, unique = true)
     private UUID idAdministrator;
 
+    @Column(nullable = false, unique = true)
     private UUID idDonation;
 
+    @Column(nullable = false, unique = true)
     private UUID idActivity;
 
+    @Column(nullable = false, unique = true)
     private UUID idInstitution;
     //endregion
 
