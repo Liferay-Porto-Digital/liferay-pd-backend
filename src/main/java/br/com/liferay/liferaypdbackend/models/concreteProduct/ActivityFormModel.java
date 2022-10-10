@@ -11,7 +11,7 @@ import java.time.LocalDate;
  */
 public class ActivityFormModel extends FormModel {
     //region CONSTRUCTORS
-    public ActivityFormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
+    public ActivityFormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Integer value) {
         super(typeOfForm, formCreator, destinedInstitutionModel, nameOfContact, lastNameOfContact, dateOfEvent, value);
     }
     //endregion

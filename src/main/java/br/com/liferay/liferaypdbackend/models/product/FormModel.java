@@ -29,7 +29,7 @@ public abstract class FormModel {
     @Column(nullable = false, unique = true)
     private UUID Institution;
 
-//    TODO: Analyse better implementation of the following logic
+//    TODO: Analyse better implementation of the following logic (Maybe ENUM?)
 //    @ElementCollection
 //    private List<String> objective;
 //
@@ -52,11 +52,11 @@ public abstract class FormModel {
     private String type;
 
     @Column(nullable = false)
-    private double value;
+    private Object value;
     //endregion
 
     //region CONSTRUCTORS
-    public FormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
+    public FormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Object value) {
         this.dateOfCreation = LocalDateTime.now();
         this.Collaborator = formCreator.getId();
         this.Institution = destinedInstitutionModel.getId();
