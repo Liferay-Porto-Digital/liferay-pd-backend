@@ -18,17 +18,20 @@ public class AddressModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-     
+
+    @Column(nullable = false)
     private String street;
-     
+
+    @Column(nullable = false)
     private String city;
 
-    @Column(length = 2)
+    @Column(nullable = false, length = 2)
     private String state;
-     
+
+    @Column(nullable = false)
     private String number;
 
-    @Column(length = 8)
+    @Column(nullable = false, length = 8)
     private String zipCode;
     //endregion
 

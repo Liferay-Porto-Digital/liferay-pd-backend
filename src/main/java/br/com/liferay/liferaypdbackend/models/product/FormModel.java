@@ -23,8 +23,10 @@ public abstract class FormModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(nullable = false, unique = true)
     private UUID Collaborator;
 
+    @Column(nullable = false, unique = true)
     private UUID Institution;
 
 //    TODO: Analyse better implementation of the following logic (Maybe ENUM?)
@@ -34,16 +36,22 @@ public abstract class FormModel {
 //    @ElementCollection
 //    private List<String> vulnerability;
 
+    @Column(nullable = false)
     private LocalDateTime dateOfCreation;
 
+    @Column(nullable = false)
     private LocalDate dateOfEvent;
 
+    @Column(nullable = false)
     private String nameContact;
 
+    @Column(nullable = false)
     private String lastNameContact;
 
+    @Column(nullable = false)
     private String type;
 
+    @Column(nullable = false)
     private Object value;
     //endregion
 
