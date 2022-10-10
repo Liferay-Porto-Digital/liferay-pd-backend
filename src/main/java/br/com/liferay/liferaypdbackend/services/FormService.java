@@ -27,7 +27,7 @@ public class FormService {
      */
     @Transactional
     @Modifying
-    public void save(FormModel formModel) {
+    public void saveForm(FormModel formModel) {
         formRepository.save(formModel);
     }
 
@@ -37,7 +37,7 @@ public class FormService {
      */
     @Transactional
     @Modifying
-    public void delete(FormModel formModel) {
+    public void deleteForm(FormModel formModel) {
         formRepository.delete(formModel);
     }
 

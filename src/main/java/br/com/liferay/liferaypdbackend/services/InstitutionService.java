@@ -27,7 +27,7 @@ public class InstitutionService {
      */
     @Transactional
     @Modifying
-    public void save(InstitutionModel institutionModel) {
+    public void saveInstitution(InstitutionModel institutionModel) {
         institutionRepository.save(institutionModel);
     }
 
@@ -37,7 +37,7 @@ public class InstitutionService {
      */
     @Transactional
     @Modifying
-    public void delete(InstitutionModel institutionModel) {
+    public void deleteInstitution(InstitutionModel institutionModel) {
         institutionRepository.delete(institutionModel);
     }
 
@@ -45,7 +45,7 @@ public class InstitutionService {
      * Get all institutions from the database
      * @return List
      */
-    public List<InstitutionModel> getAllForms() {
+    public List<InstitutionModel> getAllInstitutions() {
         return institutionRepository.findAll();
     }
     //endregion
