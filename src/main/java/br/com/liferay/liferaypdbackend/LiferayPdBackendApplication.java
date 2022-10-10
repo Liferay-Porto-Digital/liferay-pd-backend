@@ -9,8 +9,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class LiferayPdBackendApplication implements CommandLineRunner {
-    @Autowired
-    ICollaboratorRepository collaboratorRepository;
+
+    //region INJECTIONS
+    final ICollaboratorRepository collaboratorRepository;
+
+    public LiferayPdBackendApplication(ICollaboratorRepository collaboratorRepository) {
+        this.collaboratorRepository = collaboratorRepository;
+    }
+    //endregion
 
     public static void main(String[] args) {
         SpringApplication.run(LiferayPdBackendApplication.class, args);
