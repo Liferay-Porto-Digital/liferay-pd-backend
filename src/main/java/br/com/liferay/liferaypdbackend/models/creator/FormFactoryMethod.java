@@ -13,18 +13,18 @@ import java.time.LocalDate;
  */
 public class FormFactoryMethod {
     //region METHODS
-    public FormModel createForm(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Object value) {
+    public FormModel createForm(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
         FormModel formModel;
         formModel = buildForm(typeOfForm, formCreator, destinedInstitutionModel, nameOfContact, lastNameOfContact, dateOfEvent, value);
         return formModel;
     }
 
-    private FormModel buildForm(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Object value) {
+    private FormModel buildForm(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
         switch (typeOfForm) {
             case "donation":
-                return new DonationFormModel(typeOfForm, formCreator, destinedInstitutionModel, nameOfContact, lastNameOfContact, dateOfEvent, (Double)value);
+                return new DonationFormModel(typeOfForm, formCreator, destinedInstitutionModel, nameOfContact, lastNameOfContact, dateOfEvent, value);
             case "activity":
-                return new ActivityFormModel(typeOfForm, formCreator, destinedInstitutionModel, nameOfContact, lastNameOfContact, dateOfEvent, (Integer)value);
+                return new ActivityFormModel(typeOfForm, formCreator, destinedInstitutionModel, nameOfContact, lastNameOfContact, dateOfEvent, value);
             default:
                 //TODO: See viability of throwing an exception here
                 return null;

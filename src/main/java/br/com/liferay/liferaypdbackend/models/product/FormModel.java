@@ -52,11 +52,11 @@ public abstract class FormModel {
     private String type;
 
     @Column(nullable = false)
-    private Object value;
+    private Double value;
     //endregion
 
     //region CONSTRUCTORS
-    public FormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Object value) {
+    public FormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
         this.dateOfCreation = LocalDateTime.now();
         this.Collaborator = formCreator.getId();
         this.Institution = destinedInstitutionModel.getId();

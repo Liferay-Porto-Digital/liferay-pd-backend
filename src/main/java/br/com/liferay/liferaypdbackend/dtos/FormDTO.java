@@ -32,5 +32,5 @@ public class FormDTO {
     private String type;
 
     @NotBlank
-    private double value;
+    private Double value;
 }
