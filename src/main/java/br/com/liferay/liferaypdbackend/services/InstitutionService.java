@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class InstitutionService {
@@ -27,8 +29,8 @@ public class InstitutionService {
      */
     @Transactional
     @Modifying
-    public void saveInstitution(InstitutionModel institutionModel) {
-        institutionRepository.save(institutionModel);
+    public InstitutionModel save(InstitutionModel institutionModel) {
+        return institutionRepository.save(institutionModel);
     }
 
     /**
@@ -37,7 +39,7 @@ public class InstitutionService {
      */
     @Transactional
     @Modifying
-    public void deleteInstitution(InstitutionModel institutionModel) {
+    public void delete(InstitutionModel institutionModel) {
         institutionRepository.delete(institutionModel);
     }
 
@@ -45,8 +47,32 @@ public class InstitutionService {
      * Get all institutions from the database
      * @return List
      */
-    public List<InstitutionModel> getAllInstitutions() {
+    public List<InstitutionModel> findAll() {
         return institutionRepository.findAll();
+    }
+
+    public Optional<InstitutionModel> findById(UUID id) {
+        return institutionRepository.findById(id);
+    }
+
+    public boolean existsByRegistrationNumber(String registrationNumber) {
+        return institutionRepository.existsByRegistrationNumber(registrationNumber);
+    }
+
+    public boolean existsByEmail(String email) {
+        return institutionRepository.existsByEmail(email);
+    }
+
+    public boolean existsByPhoneNumber(String phoneNumber) {
+        return institutionRepository.existsByPhoneNumber(phoneNumber);
+    }
+
+    public boolean existsByUrl(String url) {
+        return institutionRepository.existsByUrl(url);
+    }
+
+    public boolean existsByName(String name) {
+        return institutionRepository.existsByName(name);
     }
     //endregion
 }
