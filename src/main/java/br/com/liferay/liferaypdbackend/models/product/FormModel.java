@@ -51,6 +51,7 @@ public abstract class FormModel {
     @Column(nullable = false)
     private String type;
 
+    // TODO: See how to implement a dynamic type here
     @Column(nullable = false)
     private Double value;
     //endregion
