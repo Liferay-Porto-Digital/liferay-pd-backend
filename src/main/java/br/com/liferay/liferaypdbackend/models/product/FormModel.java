@@ -8,15 +8,15 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 /**
  * Model class for all forms
  */
 @Entity
-@Table(name = "FormModel")
+@Table(name = "form")
 @Data
-@NoArgsConstructor
 public abstract class FormModel {
     //region VARIABLES
     @Id
@@ -29,12 +29,11 @@ public abstract class FormModel {
     @Column(nullable = false, unique = true)
     private UUID Institution;
 
-//    TODO: Analyse better implementation of the following logic (Maybe ENUM?)
-//    @ElementCollection
-//    private List<String> objective;
-//
-//    @ElementCollection
-//    private List<String> vulnerability;
+    @ElementCollection
+    private List<String> objective;
+
+    @ElementCollection
+    private List<String> vulnerability;
 
     @Column(nullable = false)
     private LocalDateTime dateOfCreation;
@@ -51,12 +50,15 @@ public abstract class FormModel {
     @Column(nullable = false)
     private String type;
 
-    // TODO: See how to implement a dynamic type here
     @Column(nullable = false)
     private Double value;
     //endregion
 
     //region CONSTRUCTORS
+    public FormModel() {
+        this.dateOfCreation = LocalDateTime.now();
+    }
+
     public FormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
         this.dateOfCreation = LocalDateTime.now();
         this.Collaborator = formCreator.getId();

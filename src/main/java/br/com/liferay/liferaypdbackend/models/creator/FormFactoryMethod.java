@@ -5,12 +5,14 @@ import br.com.liferay.liferaypdbackend.models.InstitutionModel;
 import br.com.liferay.liferaypdbackend.models.concreteProduct.ActivityFormModel;
 import br.com.liferay.liferaypdbackend.models.concreteProduct.DonationFormModel;
 import br.com.liferay.liferaypdbackend.models.product.FormModel;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
 /**
  * FormModel factory
  */
+@Component
 public class FormFactoryMethod {
     //region METHODS
     public FormModel createForm(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
