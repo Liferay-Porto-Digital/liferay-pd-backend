@@ -11,7 +11,7 @@ import java.util.UUID;
  * Class that represents the institutions
  */
 @Entity
-@Table(name = "InstitutionModel")
+@Table(name = "institution")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,7 +39,6 @@ public class InstitutionModel {
     @Column(nullable = false)
     private String url;
 
-    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
@@ -51,15 +50,12 @@ public class InstitutionModel {
     @Column(nullable = false, length = 2)
     private String state;
 
-    @Column(nullable = false)
-    private String number;
-
     @Column(nullable = false, length = 8)
     private String zipCode;
     //endregion
 
     //region CONSTRUCTORS
-    public InstitutionModel(String name, String registrationNumber, String phoneNumber, String email, String url, String description, String street, String city, String state, String number, String zipCode) {
+    public InstitutionModel(String name, String registrationNumber, String phoneNumber, String email, String url, String description, String street, String city, String state, String zipCode) {
         this.name = name;
         this.registrationNumber = registrationNumber;
         this.phoneNumber = phoneNumber;
@@ -69,7 +65,6 @@ public class InstitutionModel {
         this.street = street;
         this.city = city;
         this.state = state;
-        this.number = number;
         this.zipCode = zipCode;
     }
     //endregion

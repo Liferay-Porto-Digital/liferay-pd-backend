@@ -1,23 +1,21 @@
 package br.com.liferay.liferaypdbackend.services;
 
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
-import br.com.liferay.liferaypdbackend.repositories.IInstitutionRepository;
+import br.com.liferay.liferaypdbackend.repositories.InstitutionRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class InstitutionService {
 
     //region INJECTIONS
-    final IInstitutionRepository institutionRepository;
+    final InstitutionRepository institutionRepository;
 
-    public InstitutionService(IInstitutionRepository iInstitutionRepository) {
-        this.institutionRepository = iInstitutionRepository;
+    public InstitutionService(InstitutionRepository institutionRepository) {
+        this.institutionRepository = institutionRepository;
     }
     //endregion
 
@@ -34,25 +32,21 @@ public class InstitutionService {
     }
 
     /**
-     * Delete/Drop institution in the database
-     * @param institutionModel
-     */
-    @Transactional
-    @Modifying
-    public void delete(InstitutionModel institutionModel) {
-        institutionRepository.delete(institutionModel);
-    }
-
-    /**
      * Get all institutions from the database
      * @return List
      */
     public List<InstitutionModel> findAll() {
-        return institutionRepository.findAll();
+        if (!institutionRepository.findAll().isEmpty()) {
+            return institutionRepository.findAll();
+        }
+        return null;
     }
 
-    public Optional<InstitutionModel> findById(UUID id) {
-        return institutionRepository.findById(id);
+    public InstitutionModel findByName(String name) {
+        if (institutionRepository.findByName(name).isPresent()) {
+            return institutionRepository.findByName(name).get();
+        }
+        return null;
     }
 
     public boolean existsByRegistrationNumber(String registrationNumber) {

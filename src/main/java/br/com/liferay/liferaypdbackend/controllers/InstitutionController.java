@@ -3,6 +3,7 @@ package br.com.liferay.liferaypdbackend.controllers;
 import br.com.liferay.liferaypdbackend.dtos.InstitutionDTO;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
 import br.com.liferay.liferaypdbackend.services.InstitutionService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/institution")
+@CrossOrigin(origins = "*")
+@RequestMapping("api/v1/")
 public class InstitutionController {
     //region INJECTIONS
     final InstitutionService institutionService;
@@ -26,20 +25,24 @@ public class InstitutionController {
     //endregion
 
     //region ENDPOINTS
-    @GetMapping()
+    @GetMapping("institution")
+    @ApiOperation(value = "Get a list with all institutions on the database")
     public ResponseEntity<List<InstitutionModel>> getAllInstitutions() {
-        return ResponseEntity.status(HttpStatus.OK).body(institutionService.findAll());
+        return ResponseEntity.status(HttpStatus.FOUND).body(institutionService.findAll());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getInstitutionById(@PathVariable(value = "id") UUID id) {
-        Optional<InstitutionModel> institutionModelOptional = institutionService.findById(id);
-
-        return institutionModelOptional.<ResponseEntity<Object>>map(institutionModel -> ResponseEntity.status(HttpStatus.OK).body(institutionModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT FOUND: Couldn't find institution"));
+    @GetMapping("institution/{name}")
+    @ApiOperation(value = "Returns the institution filtered by the given name")
+    public ResponseEntity<InstitutionModel> findInstitutionByName(@PathVariable String name) {
+        if (institutionService.findByName(name.trim().toLowerCase()) != null) {
+            return ResponseEntity.status(HttpStatus.FOUND).body(institutionService.findByName(name.trim().toLowerCase()));
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Object> saveInstitution(@RequestBody @Valid InstitutionDTO institutionDTO) {
+    @PostMapping("institution/add")
+    @ApiOperation(value = "Add new institution on the database")
+    public ResponseEntity<Object> addInstitution(@RequestBody @Valid InstitutionDTO institutionDTO) {
         institutionDTO.setName(institutionDTO.getName().toLowerCase());
 
         // TODO: Make and call method of verification in order to implement less code on the controller
@@ -61,6 +64,7 @@ public class InstitutionController {
 
         InstitutionModel institutionModel = new InstitutionModel();
         BeanUtils.copyProperties(institutionDTO, institutionModel);
+        institutionModel.setName(institutionDTO.getName().trim().toLowerCase());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(institutionService.save(institutionModel));
     }

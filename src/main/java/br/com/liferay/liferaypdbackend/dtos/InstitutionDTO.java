@@ -1,11 +1,15 @@
 package br.com.liferay.liferaypdbackend.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class InstitutionDTO {
 
     @NotBlank
@@ -23,7 +27,6 @@ public class InstitutionDTO {
     @NotBlank
     private String url;
 
-    @NotBlank
     private String description;
 
     @NotBlank
@@ -35,9 +38,6 @@ public class InstitutionDTO {
     @NotBlank
     @Size(max = 2)
     private String state;
-
-    @NotBlank
-    private String number;
 
     @NotBlank
     @Size(max = 8)
