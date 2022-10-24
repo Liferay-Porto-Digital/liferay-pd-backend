@@ -12,7 +12,7 @@ import java.util.UUID;
  * Class that represents the solicitations
  */
 @Entity
-@Table(name = "SolicitationModel")
+@Table(name = "solicitation")
 @Data
 @NoArgsConstructor
 public class SolicitationModel {
