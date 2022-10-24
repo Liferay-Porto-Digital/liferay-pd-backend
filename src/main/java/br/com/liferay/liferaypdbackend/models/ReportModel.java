@@ -12,7 +12,7 @@ import java.util.UUID;
  * Class that represents the reports
  */
 @Entity
-@Table(name = "ReportModel")
+@Table(name = "report")
 @Data
 @NoArgsConstructor
 public class ReportModel {
