@@ -2,10 +2,12 @@ package br.com.liferay.liferaypdbackend.models;
 
 import br.com.liferay.liferaypdbackend.models.concreteProduct.ActivityFormModel;
 import br.com.liferay.liferaypdbackend.models.concreteProduct.DonationFormModel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -21,25 +23,30 @@ public class ReportModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false, unique = true)
-    private UUID idAdministrator;
+    private Integer numberOfDonations;
 
-    @Column(nullable = false, unique = true)
-    private UUID idDonation;
+    private Double amountDonated;
 
-    @Column(nullable = false, unique = true)
-    private UUID idActivity;
+    private Double donationsPerInstitution;
 
-    @Column(nullable = false, unique = true)
-    private UUID idInstitution;
+    private Integer numberOfActivities;
+
+    private Double amountDoneActivity;
+
+    private Double activityPerInstitution;
+
+    private LocalDateTime reportUpdateDate;
     //endregion
 
     //region CONSTRUCTORS
-    public ReportModel(CollaboratorModel administrator, DonationFormModel donationFormModel, ActivityFormModel activityFormModel, InstitutionModel institutionModel) {
-        this.idAdministrator = (administrator.getIsAdministrator()) ? administrator.getId() : null;
-        this.idDonation = donationFormModel.getId();
-        this.idActivity = activityFormModel.getId();
-        this.idInstitution = institutionModel.getId();
+    public ReportModel(Integer numberOfDonations, Double amountDonated, Double donationsPerInstitution, Integer numberOfActivities, Double amountDoneActivity, Double activityPerInstitution) {
+        this.reportUpdateDate = LocalDateTime.now();
+        this.numberOfDonations = numberOfDonations;
+        this.amountDonated = amountDonated;
+        this.donationsPerInstitution = donationsPerInstitution;
+        this.numberOfActivities = numberOfActivities;
+        this.amountDoneActivity = amountDoneActivity;
+        this.activityPerInstitution = activityPerInstitution;
     }
     //endregion
 }
