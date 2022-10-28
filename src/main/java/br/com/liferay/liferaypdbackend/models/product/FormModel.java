@@ -8,33 +8,32 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 /**
  * Model class for all forms
  */
 @Entity
-@Table(name = "FormModel")
+@Table(name = "form")
 @Data
-@NoArgsConstructor
 public abstract class FormModel {
     //region VARIABLES
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false, unique = true)
-    private UUID Collaborator;
+    @ManyToOne
+    private CollaboratorModel collaborator;
 
-    @Column(nullable = false, unique = true)
-    private UUID Institution;
+    @ManyToOne
+    private InstitutionModel institution;
 
-//    TODO: Analyse better implementation of the following logic (Maybe ENUM?)
-//    @ElementCollection
-//    private List<String> objective;
-//
-//    @ElementCollection
-//    private List<String> vulnerability;
+    @ElementCollection
+    private List<String> objective;
+
+    @ElementCollection
+    private List<String> vulnerability;
 
     @Column(nullable = false)
     private LocalDateTime dateOfCreation;
@@ -52,14 +51,18 @@ public abstract class FormModel {
     private String type;
 
     @Column(nullable = false)
-    private Object value;
+    private Double value;
     //endregion
 
     //region CONSTRUCTORS
-    public FormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Object value) {
+    public FormModel() {
         this.dateOfCreation = LocalDateTime.now();
-        this.Collaborator = formCreator.getId();
-        this.Institution = destinedInstitutionModel.getId();
+    }
+
+    public FormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
+        this.dateOfCreation = LocalDateTime.now();
+        this.collaborator = formCreator;
+        this.institution = destinedInstitutionModel;
         this.nameContact = nameOfContact;
         this.lastNameContact = lastNameOfContact;
         this.dateOfEvent = dateOfEvent;

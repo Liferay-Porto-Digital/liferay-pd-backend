@@ -10,7 +10,7 @@ import java.util.UUID;
  * Model class for the users
  */
 @Entity
-@Table(name = "CollaboratorModel")
+@Table(name = "collaborator")
 @Data
 @NoArgsConstructor
 public class CollaboratorModel {

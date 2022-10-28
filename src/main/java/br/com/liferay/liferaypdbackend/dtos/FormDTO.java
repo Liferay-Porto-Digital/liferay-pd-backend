@@ -3,24 +3,51 @@ package br.com.liferay.liferaypdbackend.dtos;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class FormDTO {
 
-//    TODO: Analyse better implementation of the following logic (Maybe ENUM?)
-//    @ElementCollection
-//    private List<String> objective;
-//
-//    @ElementCollection
-//    private List<String> vulnerability;
+    @NotBlank
+    private String institutionName;
 
     @NotBlank
-    private LocalDateTime dateOfCreation;
+    private String institutionRegistrationNumber;
 
     @NotBlank
-    private LocalDate dateOfEvent;
+    private String institutionPhoneNumber;
+
+    @NotBlank
+    private String institutionEmail;
+
+    @NotBlank
+    private String institutionUrl;
+
+    @NotBlank
+    private String institutionStreet;
+
+    @NotBlank
+    private String institutionCity;
+
+    @NotBlank
+    @Size(max = 2)
+    private String institutionState;
+
+    @NotBlank
+    @Size(max = 8)
+    private String institutionZipCode;
+
+    @NotBlank
+    private List<String> objective;
+
+    @NotBlank
+    private List<String> vulnerability;
+
+    @NotBlank
+    private String dateOfEvent;
 
     @NotBlank
     private String nameContact;
@@ -29,8 +56,5 @@ public class FormDTO {
     private String lastNameContact;
 
     @NotBlank
-    private String type;
-
-    @NotBlank
-    private double value;
+    private Double value;
 }

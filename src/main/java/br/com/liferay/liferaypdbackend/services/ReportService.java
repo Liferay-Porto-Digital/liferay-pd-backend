@@ -1,43 +1,39 @@
 package br.com.liferay.liferaypdbackend.services;
 
 import br.com.liferay.liferaypdbackend.models.ReportModel;
-import br.com.liferay.liferaypdbackend.models.product.FormModel;
-import br.com.liferay.liferaypdbackend.repositories.IReportRepository;
-import org.springframework.data.jpa.repository.Modifying;
+import br.com.liferay.liferaypdbackend.repositories.ReportRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class ReportService {
-
     //region INJECTIONS
-    final IReportRepository reportRepository;
+    final ReportRepository reportRepository;
 
-    public ReportService(IReportRepository reportRepository) {
+    public ReportService(ReportRepository reportRepository) {
         this.reportRepository = reportRepository;
     }
     //endregion
 
     //region METHODS
-
-    /**
-     * Save report in database
-     * @param reportModel
-     */
     @Transactional
-    @Modifying
-    public void saveReport(ReportModel reportModel) {
-        reportRepository.save(reportModel);
+    public ReportModel save() {
+        return reportRepository.save (
+                new ReportModel (
+                        reportRepository.countAllDonations(),
+                        reportRepository.countDonationAmount(),
+                        reportRepository.countDonationAmount() / reportRepository.countAllInstitutions(),
+                        reportRepository.countAllActivities(),
+                        reportRepository.countActivityAmount(),
+                        reportRepository.countActivityAmount() / reportRepository.countAllInstitutions()
+                )
+        );
     }
 
-    /**
-     * Get all report from the database
-     * @return List
-     */
-    public List<ReportModel> getAllReports() {
-        return reportRepository.findAll();
+    public List<ReportModel> findAll() {
+        return reportRepository.findAllDescending();
     }
     //endregion
 }
