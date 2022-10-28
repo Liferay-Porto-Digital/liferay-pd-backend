@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -44,7 +46,7 @@ public class FormController {
                 formService.saveOrGetInstitution(formDTO),
                 formDTO.getNameContact(),
                 formDTO.getLastNameContact(),
-                formDTO.getDateOfEvent(),
+                LocalDate.parse(formDTO.getDateOfEvent(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 formDTO.getValue()
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(formService.save(donationFormModel));
@@ -59,7 +61,7 @@ public class FormController {
                 formService.saveOrGetInstitution(formDTO),
                 formDTO.getNameContact(),
                 formDTO.getLastNameContact(),
-                formDTO.getDateOfEvent(),
+                LocalDate.parse(formDTO.getDateOfEvent(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 formDTO.getValue()
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(formService.save(donationFormModel));

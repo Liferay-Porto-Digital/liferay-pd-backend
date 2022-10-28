@@ -47,7 +47,7 @@ public class FormDTO {
     private List<String> vulnerability;
 
     @NotBlank
-    private LocalDate dateOfEvent;
+    private String dateOfEvent;
 
     @NotBlank
     private String nameContact;

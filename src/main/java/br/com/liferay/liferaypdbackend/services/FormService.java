@@ -47,7 +47,7 @@ public class FormService {
                 formDTO.getInstitutionPhoneNumber(),
                 formDTO.getInstitutionEmail(),
                 formDTO.getInstitutionUrl(),
-                null,
+                " ",
                 formDTO.getInstitutionStreet(),
                 formDTO.getInstitutionCity(),
                 formDTO.getInstitutionState(),
