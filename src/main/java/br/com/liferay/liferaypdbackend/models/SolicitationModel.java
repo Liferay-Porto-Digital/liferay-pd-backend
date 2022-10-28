@@ -21,7 +21,6 @@ public class SolicitationModel {
     private UUID id;
 
     @ManyToOne
-    @Column(unique = true, nullable = false)
     private CollaboratorModel administrator;
 
     @Column(nullable = false)

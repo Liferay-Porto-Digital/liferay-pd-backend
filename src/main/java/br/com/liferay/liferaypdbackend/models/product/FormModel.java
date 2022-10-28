@@ -3,6 +3,7 @@ package br.com.liferay.liferaypdbackend.models.product;
 import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,11 +24,9 @@ public abstract class FormModel {
     private UUID id;
 
     @ManyToOne
-    @Column(nullable = false, unique = true)
     private CollaboratorModel collaborator;
 
     @ManyToOne
-    @Column(nullable = false, unique = true)
     private InstitutionModel institution;
 
     @ElementCollection
