@@ -3,7 +3,6 @@ package br.com.liferay.liferaypdbackend.models.product;
 import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,11 +22,13 @@ public abstract class FormModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @ManyToOne
     @Column(nullable = false, unique = true)
-    private UUID Collaborator;
+    private CollaboratorModel collaborator;
 
+    @ManyToOne
     @Column(nullable = false, unique = true)
-    private UUID Institution;
+    private InstitutionModel institution;
 
     @ElementCollection
     private List<String> objective;
@@ -61,8 +62,8 @@ public abstract class FormModel {
 
     public FormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
         this.dateOfCreation = LocalDateTime.now();
-        this.Collaborator = formCreator.getId();
-        this.Institution = destinedInstitutionModel.getId();
+        this.collaborator = formCreator;
+        this.institution = destinedInstitutionModel;
         this.nameContact = nameOfContact;
         this.lastNameContact = lastNameOfContact;
         this.dateOfEvent = dateOfEvent;
