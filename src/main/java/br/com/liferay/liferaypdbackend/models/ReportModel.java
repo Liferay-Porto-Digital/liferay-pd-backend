@@ -1,8 +1,5 @@
 package br.com.liferay.liferaypdbackend.models;
 
-import br.com.liferay.liferaypdbackend.models.concreteProduct.ActivityFormModel;
-import br.com.liferay.liferaypdbackend.models.concreteProduct.DonationFormModel;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
