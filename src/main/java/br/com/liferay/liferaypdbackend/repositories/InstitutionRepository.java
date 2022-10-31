@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,4 +23,10 @@ public interface InstitutionRepository extends JpaRepository<InstitutionModel, U
     boolean existsByPhoneNumber(String phoneNumber);
     boolean existsByUrl(String url);
     boolean existsByName(String name);
+
+    @Query(value = "select institution from InstitutionModel institution inner join FormModel form on institution.id = form.institution.id group by institution.id order by count(institution) desc")
+    List<InstitutionModel> getInstitutionListWithMoreSolicitations();
+
+    @Query(value = "select institution from InstitutionModel institution inner join FormModel form on institution.id = form.institution.id group by institution.id order by count(institution)")
+    List<InstitutionModel> getInstitutionListWithLessSolicitations();
 }

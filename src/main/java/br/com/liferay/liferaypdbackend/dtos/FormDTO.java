@@ -12,29 +12,21 @@ public class FormDTO {
     @NotBlank
     private String institutionName;
 
-    @NotBlank
     private String institutionRegistrationNumber;
 
-    @NotBlank
     private String institutionPhoneNumber;
 
-    @NotBlank
     private String institutionEmail;
 
-    @NotBlank
     private String institutionUrl;
 
-    @NotBlank
     private String institutionStreet;
 
-    @NotBlank
     private String institutionCity;
 
-    @NotBlank
     @Size(max = 2)
     private String institutionState;
 
-    @NotBlank
     @Size(max = 8)
     private String institutionZipCode;
 

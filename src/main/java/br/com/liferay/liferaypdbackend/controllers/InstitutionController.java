@@ -40,7 +40,19 @@ public class InstitutionController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
-    @PostMapping("institution/add")
+    @GetMapping("institution/more-solicitation")
+    @ApiOperation(value = "Get all institutions ordered by the ones with most solicitations")
+    public List<InstitutionModel> getMoreSolicitation() {
+        return institutionService.getInstitutionWithMoreSolicitations();
+    }
+
+    @GetMapping("institution/less-solicitation")
+    @ApiOperation(value = "Get all institutions ordered by the ones with fewer solicitations")
+    public List<InstitutionModel> getLessSolicitation() {
+        return institutionService.getInstitutionWithLessSolicitations();
+    }
+
+    @PostMapping("institution")
     @ApiOperation(value = "Add new institution on the database")
     public ResponseEntity<Object> addInstitution(@RequestBody @Valid InstitutionDTO institutionDTO) {
         institutionDTO.setName(institutionDTO.getName().toLowerCase());
