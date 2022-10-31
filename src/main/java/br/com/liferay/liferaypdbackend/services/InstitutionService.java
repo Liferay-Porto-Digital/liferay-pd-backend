@@ -68,5 +68,13 @@ public class InstitutionService {
     public boolean existsByName(String name) {
         return institutionRepository.existsByName(name);
     }
+
+    public List<InstitutionModel> getInstitutionWithMoreSolicitations() {
+        return institutionRepository.getInstitutionListWithMoreSolicitations();
+    }
+
+    public List<InstitutionModel> getInstitutionWithLessSolicitations() {
+        return institutionRepository.getInstitutionListWithLessSolicitations();
+    }
     //endregion
 }
