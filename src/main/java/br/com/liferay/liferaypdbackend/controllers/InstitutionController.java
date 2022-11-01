@@ -39,12 +39,11 @@ public class InstitutionController {
 
     @GetMapping("institution/{name}")
     @ApiOperation(value = "Returns the institution filtered by the given name")
-    //TODO: Validate logic to frontend autocomplete integration
     public ResponseEntity<Object> findInstitutionByName(@PathVariable String name) {
-        if (institutionService.findByName(name.trim().toLowerCase()) != null) {
+        if (institutionService.findByName(name.trim()) != null) {
             return ResponseEntity
                     .status(HttpStatus.FOUND)
-                    .body(institutionService.findByName(name.trim().toLowerCase()));
+                    .body(institutionService.findByName(name.trim()));
         }
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -80,7 +79,7 @@ public class InstitutionController {
     @PostMapping("institution")
     @ApiOperation(value = "Add new institution on the database")
     public ResponseEntity<Object> addInstitution(@RequestBody @Valid InstitutionDTO institutionDTO) {
-        institutionDTO.setName(institutionDTO.getName().toLowerCase());
+        institutionDTO.setName(institutionDTO.getName().trim());
 
         // TODO: Make and call method of verification in order to implement less code on the controller
         if (institutionService.existsByRegistrationNumber(institutionDTO.getRegistrationNumber())) {
@@ -111,7 +110,6 @@ public class InstitutionController {
 
         InstitutionModel institutionModel = new InstitutionModel();
         BeanUtils.copyProperties(institutionDTO, institutionModel);
-        institutionModel.setName(institutionDTO.getName().trim().toLowerCase());
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
