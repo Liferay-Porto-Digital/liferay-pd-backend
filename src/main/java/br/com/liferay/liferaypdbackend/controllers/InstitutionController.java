@@ -34,7 +34,7 @@ public class InstitutionController {
         }
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body("EMPTY LIST OF INSTITUTION: Please register a institution before calling this endpoint again.");
+                .body("INSTITUTION LIST NOT FOUND: Please register a institution before calling this endpoint again.");
     }
 
     @GetMapping("institution/{name}")
@@ -48,7 +48,7 @@ public class InstitutionController {
         }
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body("INSTITUTION NOT FOUND WITH PROVIDED NAME");
+                .body("INSTITUTION NOT FOUND: No institution with provided name");
     }
 
     @GetMapping("institution/more-solicitation")
@@ -61,7 +61,7 @@ public class InstitutionController {
         }
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body("EMPTY LIST OF INSTITUTION: Please register a institution before calling this endpoint again.");
+                .body("INSTITUTION LIST NOT FOUND: Please register a institution before calling this endpoint again.");
     }
 
     @GetMapping("institution/less-solicitation")
@@ -74,7 +74,7 @@ public class InstitutionController {
         }
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body("EMPTY LIST OF INSTITUTION: Please register a institution before calling this endpoint again.");
+                .body("INSTITUTION LIST NOT FOUND: Please register a institution before calling this endpoint again.");
     }
 
     @PostMapping("institution")
