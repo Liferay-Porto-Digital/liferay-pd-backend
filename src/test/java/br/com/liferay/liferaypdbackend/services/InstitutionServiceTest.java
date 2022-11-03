@@ -15,12 +15,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -61,7 +63,7 @@ class InstitutionServiceTest {
 
     @Test
     void whenFindAllThenReturnAListOfInstitutions() {
-        when(institutionService.findAll()).thenReturn(List.of(generateInstitution()));
+        when(institutionService.findAll()).thenReturn(Arrays.asList(generateInstitution()));
 
         assertNotNull(institutionService.findAll());
         assertEquals(1, institutionService.findAll().size());
@@ -77,45 +79,46 @@ class InstitutionServiceTest {
 //        assertEquals(name, response.getName());
 //        //esses asserts novamente precisam ser revistos
 //    }
+//
+//    //TODO: Change test name
+//    @Test
+//    void other_whenFindByNameThenReturnNameOfInstitution() {
+//        when(institutionService.findByName(any(String.class))).thenReturn(generateInstitution());
+//
+//        String name = "Imip";
+//
+//        assertNotNull(institutionService.findByName(generateInstitution().getName()));
+//        assertEquals(InstitutionModel.class, institutionService.findByName(generateInstitution().getName()));
+//        assertEquals(name, generateInstitution().getName());
+//    }
 
-    //TODO: Change test name
     @Test
-    void other_whenFindByNameThenReturnNameOfInstitution() {
-        when(institutionService.findByName(any(String.class))).thenReturn(generateInstitution());
+    void existsByRegistrationNumber() {
+        when(institutionRepository.existsByRegistrationNumber(any(String.class))).thenReturn(!generateInstitution().getRegistrationNumber().isEmpty());
 
-        String name = "Imip";
-
-        assertNotNull(institutionService.findByName(generateInstitution().getName()));
-        assertEquals(InstitutionModel.class, institutionService.findByName(generateInstitution().getName()));
-        assertEquals(name, generateInstitution().getName());
+        assertNotNull(generateInstitution());
+        assertEquals(InstitutionModel.class, generateInstitution().getClass());
+        assertEquals("33455", generateInstitution().getRegistrationNumber());
     }
 
-//    @Test
-//    void existsByRegistrationNumber() {
-//        String registrationNumber = "number";
-//        Mockito.when(institutionRepository.existsByRegistrationNumber(Mockito.anyString())).thenReturn(Boolean.valueOf(registrationNumber));
-//        InstitutionModel response = institutionService.findByName(registrationNumber);
-//
-//        //o response aqui ta nulo
-//        assertNotNull(response);
-//        assertEquals(InstitutionModel.class, response.getClass());
-//    }
-//
-//    @Test
-//    void existsByEmail() {
-//       // Mockito.when(institutionRepository.existsByEmail(Mockito.anyString())).thenReturn(Optional.of(institutionModel));
-//        String email = "email";
-//       // InstitutionModel response = institutionService.existsByEmail(email);
-//
-//       // assertNotNull(response);
-//      //  assertEquals(InstitutionModel.class, response.getClass());
-//      //  assertEquals(email, response.getName());//
-//    }
-//
-//    @Test
-//    void existsByPhoneNumber() {
-//    }
-//
+    @Test
+    void existsByEmail() {
+        when(institutionRepository.existsByEmail(any(String.class))).thenReturn(!generateInstitution().getEmail().isEmpty());
+
+        assertNotNull(generateInstitution());
+        assertEquals(InstitutionModel.class, generateInstitution().getClass());
+        assertEquals("imip@email.com", generateInstitution().getEmail());//
+    }
+
+    @Test
+    void existsByPhoneNumber() {
+     when(institutionRepository.existsByPhoneNumber(any(String.class))).thenReturn(!generateInstitution().getPhoneNumber().isEmpty());
+     
+     assertNotNull(generateInstitution());
+     assertEquals(InstitutionModel.class, generateInstitution().getClass());
+     assertEquals("8199998888", generateInstitution().getPhoneNumber());
+    }
+
 //    @Test
 //    void existsByUrl() {
 //    }
