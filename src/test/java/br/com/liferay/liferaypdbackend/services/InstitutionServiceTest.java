@@ -41,7 +41,7 @@ class InstitutionServiceTest {
                 "33455",
                 "8199998888",
                 "imip@email.com",
-                "www.imip.cm.br",
+                "www.imip.com.br",
                 "hospital imip",
                 "Rua do Imip",
                 "Recife",
@@ -70,9 +70,10 @@ class InstitutionServiceTest {
         assertEquals(InstitutionModel.class, institutionService.findAll().get(0).getClass());
     }
 
+    //TODO: Change test name
 //    @Test
 //    void whenFindByNameThenReturnNameOfInstitution() {
-//        when(institutionService.findByName(any(String.class))).thenReturn(null);
+//        when(institutionService.findByName()).thenReturn(null);
 //
 //        assertNotNull(response);
 //        assertEquals(InstitutionModel.class, response.getClass());
@@ -80,7 +81,7 @@ class InstitutionServiceTest {
 //        //esses asserts novamente precisam ser revistos
 //    }
 //
-//    //TODO: Change test name
+//
 //    @Test
 //    void other_whenFindByNameThenReturnNameOfInstitution() {
 //        when(institutionService.findByName(any(String.class))).thenReturn(generateInstitution());
@@ -119,14 +120,24 @@ class InstitutionServiceTest {
      assertEquals("8199998888", generateInstitution().getPhoneNumber());
     }
 
-//    @Test
-//    void existsByUrl() {
-//    }
-//
-//    @Test
-//    void existsByName() {
-//    }
-//
+    @Test
+    void existsByUrl() {
+        when(institutionRepository.existsByUrl(any(String.class))).thenReturn(!generateInstitution().getUrl().isEmpty());
+
+        assertNotNull(generateInstitution());
+        assertEquals(InstitutionModel.class, generateInstitution().getClass());
+        assertEquals("www.imip.com.br", generateInstitution().getUrl());
+    }
+
+   @Test
+    void existsByName() {
+       when(institutionRepository.existsByName(any(String.class))).thenReturn(!generateInstitution().getName().isEmpty());
+
+       assertNotNull(generateInstitution());
+       assertEquals(InstitutionModel.class, generateInstitution().getClass());
+       assertEquals("Imip", generateInstitution().getName());
+   }
+
 //    @Test
 //    void getInstitutionWithMoreSolicitations() {
 //        when(institutionRepository.findAll()).thenReturn(List.of(institutionModel));
