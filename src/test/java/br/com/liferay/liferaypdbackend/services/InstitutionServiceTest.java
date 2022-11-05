@@ -63,28 +63,16 @@ class InstitutionServiceTest {
         Assertions.assertEquals(InstitutionModel.class, institutionService.findAll().get(0).getClass());
     }
 
-    //TODO: Change test name
-//    @Test
-//    void whenFindByNameThenReturnNameOfInstitution() {
-//        when(institutionService.findByName()).thenReturn(null);
-//
-//        assertNotNull(response);
-//        assertEquals(InstitutionModel.class, response.getClass());
-//        assertEquals(name, response.getName());
-//        //esses asserts novamente precisam ser revistos
-//    }
-//
-//
-//    @Test
-//    void other_whenFindByNameThenReturnNameOfInstitution() {
-//        when(institutionService.findByName(any(String.class))).thenReturn(generateInstitution());
-//
-//        String name = "Imip";
-//
-//        assertNotNull(institutionService.findByName(generateInstitution().getName()));
-//        assertEquals(InstitutionModel.class, institutionService.findByName(generateInstitution().getName()));
-//        assertEquals(name, generateInstitution().getName());
-//    }
+    @Test
+    void whenFindByNameThenReturnInstitution() {
+        InstitutionModel institutionModel = generateInstitution();
+        when(institutionService.findByName("Imip")).thenReturn(Optional.of(institutionModel));
+
+        Assertions.assertTrue(institutionService.findByName("Imip").isPresent());
+        Assertions.assertNotNull(institutionService.findByName("Imip"));
+        Assertions.assertEquals(InstitutionModel.class, institutionService.findByName("Imip").get().getClass());
+        Assertions.assertEquals(institutionModel.getName(), institutionService.findByName("Imip").get().getName());
+   }
 
     @Test
     void existsByRegistrationNumber() {
@@ -141,20 +129,53 @@ class InstitutionServiceTest {
        Assertions.assertEquals("Imip", institutionModel.getName());
    }
 
-//    @Test
-//    void getInstitutionWithMoreSolicitations() {
-//        when(institutionRepository.findAll()).thenReturn(List.of(institutionModel));
-//        List<InstitutionModel> response = institutionService.getInstitutionWithMoreSolicitations();
-//
-//        assertNotNull(response);
-//
-//    }
-//
-//    @Test
-//    void getInstitutionWithLessSolicitations() {
-//        when(institutionRepository.findAll()).thenReturn(List.of(institutionModel));
-//        List<InstitutionModel> response = institutionService.getInstitutionWithLessSolicitations();
-//
-//        assertNotNull(response);
-//    }
+    @Test
+    void getInstitutionWithMoreSolicitations() {
+        InstitutionModel newInstitution = new InstitutionModel (
+                "Senac",
+                "56789",
+                "8188889999",
+                "senac@email.com",
+                "www.senac.com.br",
+                "faculdade senac",
+                "Rua do Pombal",
+                "Recife",
+                "PE",
+                "87654321"
+        );
+
+        when(institutionService.getInstitutionWithMoreSolicitations()).thenReturn(
+                Collections.singletonList(generateInstitution()));
+
+        List<InstitutionModel> institutionModelList = institutionService.getInstitutionWithMoreSolicitations();
+
+        Assertions.assertNotNull(institutionModelList);
+        Assertions.assertFalse(institutionModelList.contains(newInstitution));
+        Assertions.assertEquals(InstitutionModel.class, institutionModelList.get(0).getClass());
+    }
+
+   @Test
+    void getInstitutionWithLessSolicitations() {
+       InstitutionModel newInstitution = new InstitutionModel (
+               "Senac",
+               "56789",
+               "8188889999",
+               "senac@email.com",
+               "www.senac.com.br",
+               "faculdade senac",
+               "Rua do Pombal",
+               "Recife",
+               "PE",
+               "87654321"
+       );
+
+       when(institutionService.getInstitutionWithLessSolicitations()).thenReturn(
+               Collections.singletonList(generateInstitution()));
+
+       List<InstitutionModel> institutionModelList = institutionService.getInstitutionWithLessSolicitations();
+
+       Assertions.assertNotNull(institutionModelList);
+       Assertions.assertFalse(institutionModelList.contains(newInstitution));
+       Assertions.assertEquals(InstitutionModel.class, institutionModelList.get(0).getClass());
+   }
 }
