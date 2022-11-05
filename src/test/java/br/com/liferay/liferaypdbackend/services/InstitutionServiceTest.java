@@ -1,28 +1,19 @@
 package br.com.liferay.liferaypdbackend.services;
 
-import br.com.liferay.liferaypdbackend.dtos.InstitutionDTO;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
 import br.com.liferay.liferaypdbackend.repositories.InstitutionRepository;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -52,22 +43,24 @@ class InstitutionServiceTest {
 
     @Test
     void whenSaveThenReturnSuccess() {
-        when(institutionService.save(any(InstitutionModel.class))).thenReturn(generateInstitution());
+        InstitutionModel institutionModel = generateInstitution();
+        when(institutionService.save(any(InstitutionModel.class))).thenReturn(institutionModel);
 
         // Test whether save returns null
-        assertNotNull(institutionService.save(generateInstitution()));
+        Assertions.assertNotNull(institutionService.save(institutionModel));
 
         // Test whether save returns a InstitutionModel
-        assertTrue(institutionService.save(generateInstitution()).getClass() == InstitutionModel.class);
+        Assertions.assertSame(institutionService.save(institutionModel).getClass(), InstitutionModel.class);
     }
 
     @Test
     void whenFindAllThenReturnAListOfInstitutions() {
-        when(institutionService.findAll()).thenReturn(Arrays.asList(generateInstitution()));
+        InstitutionModel institutionModel = generateInstitution();
+        when(institutionService.findAll()).thenReturn(Collections.singletonList(institutionModel));
 
-        assertNotNull(institutionService.findAll());
-        assertEquals(1, institutionService.findAll().size());
-        assertEquals(InstitutionModel.class, institutionService.findAll().get(0).getClass());
+        Assertions.assertNotNull(institutionService.findAll());
+        Assertions.assertEquals(1, institutionService.findAll().size());
+        Assertions.assertEquals(InstitutionModel.class, institutionService.findAll().get(0).getClass());
     }
 
     //TODO: Change test name
@@ -95,47 +88,57 @@ class InstitutionServiceTest {
 
     @Test
     void existsByRegistrationNumber() {
-        when(institutionRepository.existsByRegistrationNumber(any(String.class))).thenReturn(!generateInstitution().getRegistrationNumber().isEmpty());
+        InstitutionModel institutionModel = generateInstitution();
+        when(institutionRepository.existsByRegistrationNumber("33455")).thenReturn(!institutionModel
+                .getRegistrationNumber().isEmpty());
 
-        assertNotNull(generateInstitution());
-        assertEquals(InstitutionModel.class, generateInstitution().getClass());
-        assertEquals("33455", generateInstitution().getRegistrationNumber());
+        Assertions.assertNotNull(institutionModel);
+        Assertions.assertEquals(InstitutionModel.class, institutionModel.getClass());
+        Assertions.assertEquals("33455", institutionModel.getRegistrationNumber());
     }
 
     @Test
     void existsByEmail() {
-        when(institutionRepository.existsByEmail(any(String.class))).thenReturn(!generateInstitution().getEmail().isEmpty());
+        InstitutionModel institutionModel = generateInstitution();
+        when(institutionRepository.existsByEmail("imip@email.com")).thenReturn(!institutionModel.getEmail()
+                .isEmpty());
 
-        assertNotNull(generateInstitution());
-        assertEquals(InstitutionModel.class, generateInstitution().getClass());
-        assertEquals("imip@email.com", generateInstitution().getEmail());//
+        Assertions.assertNotNull(institutionModel);
+        Assertions.assertEquals(InstitutionModel.class, institutionModel.getClass());
+        Assertions.assertEquals("imip@email.com", institutionModel.getEmail());//
     }
 
     @Test
     void existsByPhoneNumber() {
-     when(institutionRepository.existsByPhoneNumber(any(String.class))).thenReturn(!generateInstitution().getPhoneNumber().isEmpty());
-     
-     assertNotNull(generateInstitution());
-     assertEquals(InstitutionModel.class, generateInstitution().getClass());
-     assertEquals("8199998888", generateInstitution().getPhoneNumber());
+        InstitutionModel institutionModel = generateInstitution();
+        when(institutionRepository.existsByPhoneNumber("8199998888")).thenReturn(!institutionModel
+                 .getPhoneNumber().isEmpty());
+
+         Assertions.assertNotNull(institutionModel);
+         Assertions.assertEquals(InstitutionModel.class, institutionModel.getClass());
+         Assertions.assertEquals("8199998888", institutionModel.getPhoneNumber());
     }
 
     @Test
     void existsByUrl() {
-        when(institutionRepository.existsByUrl(any(String.class))).thenReturn(!generateInstitution().getUrl().isEmpty());
+        InstitutionModel institutionModel = generateInstitution();
+        when(institutionRepository.existsByUrl("www.imip.com.br")).thenReturn(!institutionModel.getUrl()
+                .isEmpty());
 
-        assertNotNull(generateInstitution());
-        assertEquals(InstitutionModel.class, generateInstitution().getClass());
-        assertEquals("www.imip.com.br", generateInstitution().getUrl());
+        Assertions.assertNotNull(institutionModel);
+        Assertions.assertEquals(InstitutionModel.class, institutionModel.getClass());
+        Assertions.assertEquals("www.imip.com.br", institutionModel.getUrl());
     }
 
    @Test
     void existsByName() {
-       when(institutionRepository.existsByName(any(String.class))).thenReturn(!generateInstitution().getName().isEmpty());
+       InstitutionModel institutionModel = generateInstitution();
+        when(institutionRepository.existsByName("Imip")).thenReturn(!institutionModel.getName()
+               .isEmpty());
 
-       assertNotNull(generateInstitution());
-       assertEquals(InstitutionModel.class, generateInstitution().getClass());
-       assertEquals("Imip", generateInstitution().getName());
+       Assertions.assertNotNull(institutionModel);
+       Assertions.assertEquals(InstitutionModel.class, institutionModel.getClass());
+       Assertions.assertEquals("Imip", institutionModel.getName());
    }
 
 //    @Test
