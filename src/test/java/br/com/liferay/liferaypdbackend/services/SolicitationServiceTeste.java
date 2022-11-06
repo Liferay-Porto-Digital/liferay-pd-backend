@@ -1,4 +1,4 @@
-package br.com.liferay.liferaypdbackend;
+package br.com.liferay.liferaypdbackend.services;
 
 import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
