@@ -1,4 +1,4 @@
-package br.com.liferay.liferaypdbackend;
+package br.com.liferay.liferaypdbackend.services;
 
 import br.com.liferay.liferaypdbackend.models.ReportModel;
 import br.com.liferay.liferaypdbackend.repositories.ReportRepository;
@@ -62,8 +62,4 @@ public class ReportServiceTest {
         Assertions.assertNotNull(reportService.findAll());
         Assertions.assertEquals(10,reportService.findAll().get(0).getNumberOfDonations());
     }
-
-
-
-
 }
