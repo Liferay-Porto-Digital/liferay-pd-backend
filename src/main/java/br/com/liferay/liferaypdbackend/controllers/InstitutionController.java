@@ -79,7 +79,13 @@ public class InstitutionController {
     @PostMapping("institution")
     @ApiOperation(value = "Add new institution on the database")
     public ResponseEntity<Object> addInstitution(@RequestBody @Valid InstitutionDTO institutionDTO) {
-        institutionDTO.setName(institutionDTO.getName().trim());
+        institutionDTO.setName(institutionDTO.getName().trim().toUpperCase());
+        institutionDTO.setStreet(institutionDTO.getStreet().trim().toUpperCase());
+        institutionDTO.setCity(institutionDTO.getCity().trim().toUpperCase());
+        institutionDTO.setState(institutionDTO.getState().trim().toUpperCase());
+        institutionDTO.setDescription(institutionDTO.getDescription().trim().toUpperCase());
+        institutionDTO.setEmail(institutionDTO.getEmail().trim());
+        institutionDTO.setUrl(institutionDTO.getUrl().trim());
 
         // TODO: Make and call method of verification in order to implement less code on the controller
         if (institutionService.existsByRegistrationNumber(institutionDTO.getRegistrationNumber())) {
