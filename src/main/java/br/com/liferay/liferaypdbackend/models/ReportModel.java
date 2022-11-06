@@ -29,6 +29,7 @@ public class ReportModel {
     private Integer numberOfActivities;
 
     private Double amountDoneActivity;
+    //a soma das atividades deveria ser em horas, acho que o tipo double não representa
 
     private Double activityPerInstitution;
 
