@@ -40,10 +40,8 @@ public class InstitutionController {
     @GetMapping("institution/{name}")
     @ApiOperation(value = "Returns the institution filtered by the given name")
     public ResponseEntity<Object> findInstitutionByName(@PathVariable String name) {
-        if (institutionService.findByName(name.trim()) != null) {
-            return ResponseEntity
-                    .status(HttpStatus.FOUND)
-                    .body(institutionService.findByName(name.trim()));
+        if (institutionService.findByName(name.trim().toLowerCase()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.FOUND).body(institutionService.findByName(name.trim().toLowerCase()).get());
         }
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
