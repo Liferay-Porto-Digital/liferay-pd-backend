@@ -3,6 +3,7 @@ package br.com.liferay.liferaypdbackend.controllers;
 import br.com.liferay.liferaypdbackend.dtos.InstitutionDTO;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
 import br.com.liferay.liferaypdbackend.services.InstitutionService;
+import br.com.liferay.liferaypdbackend.services.utils.ConsoleLogUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -39,7 +41,7 @@ public class InstitutionController {
 
     @GetMapping("institution/{name}")
     @ApiOperation(value = "Returns the institution filtered by the given name")
-    public ResponseEntity<Object> findInstitutionByName(@PathVariable String name) {
+    public ResponseEntity<Object> findInstitutionByName(@RequestBody @Valid @PathVariable(value = "name") String name) {
         if (institutionService.findByName(name.trim().toLowerCase()).isPresent()) {
             return ResponseEntity
                     .status(HttpStatus.FOUND)
@@ -79,47 +81,54 @@ public class InstitutionController {
     @PostMapping("institution")
     @ApiOperation(value = "Add new institution on the database")
     public ResponseEntity<Object> addInstitution(@RequestBody @Valid InstitutionDTO institutionDTO) {
-        institutionDTO.setName(institutionDTO.getName().trim().toUpperCase());
-        institutionDTO.setStreet(institutionDTO.getStreet().trim().toUpperCase());
-        institutionDTO.setCity(institutionDTO.getCity().trim().toUpperCase());
-        institutionDTO.setState(institutionDTO.getState().trim().toUpperCase());
-        institutionDTO.setDescription(institutionDTO.getDescription().trim().toUpperCase());
-        institutionDTO.setEmail(institutionDTO.getEmail().trim());
-        institutionDTO.setUrl(institutionDTO.getUrl().trim());
+        try {
+            institutionDTO.setName(institutionDTO.getName().trim().toUpperCase());
+            institutionDTO.setStreet(institutionDTO.getStreet().trim().toUpperCase());
+            institutionDTO.setCity(institutionDTO.getCity().trim().toUpperCase());
+            institutionDTO.setState(institutionDTO.getState().trim().toUpperCase());
+            institutionDTO.setDescription(institutionDTO.getDescription().trim().toUpperCase());
+            institutionDTO.setEmail(institutionDTO.getEmail().trim());
+            institutionDTO.setUrl(institutionDTO.getUrl().trim());
 
-        // TODO: Make and call method of verification in order to implement less code on the controller
-        if (institutionService.existsByRegistrationNumber(institutionDTO.getRegistrationNumber())) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body("CONFLICT: Registration Number already belongs to an existing institution");
-        }
-        if (institutionService.existsByEmail(institutionDTO.getEmail())) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body("CONFLICT: Email already belongs to an existing institution");
-        }
-        if (institutionService.existsByPhoneNumber(institutionDTO.getPhoneNumber())) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body("CONFLICT: Phone Number already belongs to an existing institution");
-        }
-        if (institutionService.existsByUrl(institutionDTO.getUrl())) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body("CONFLICT: URL already belongs to an existing institution");
-        }
-        if (institutionService.existsByName(institutionDTO.getName())) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body("CONFLICT: Name already belongs to an existing institution");
-        }
+            // TODO: Make and call method of verification in order to implement less code on the controller
+            if (institutionService.existsByRegistrationNumber(institutionDTO.getRegistrationNumber())) {
+                return ResponseEntity
+                        .status(HttpStatus.CONFLICT)
+                        .body("CONFLICT: Registration Number already belongs to an existing institution");
+            }
+            if (institutionService.existsByEmail(institutionDTO.getEmail())) {
+                return ResponseEntity
+                        .status(HttpStatus.CONFLICT)
+                        .body("CONFLICT: Email already belongs to an existing institution");
+            }
+            if (institutionService.existsByPhoneNumber(institutionDTO.getPhoneNumber())) {
+                return ResponseEntity
+                        .status(HttpStatus.CONFLICT)
+                        .body("CONFLICT: Phone Number already belongs to an existing institution");
+            }
+            if (institutionService.existsByUrl(institutionDTO.getUrl())) {
+                return ResponseEntity
+                        .status(HttpStatus.CONFLICT)
+                        .body("CONFLICT: URL already belongs to an existing institution");
+            }
+            if (institutionService.existsByName(institutionDTO.getName())) {
+                return ResponseEntity
+                        .status(HttpStatus.CONFLICT)
+                        .body("CONFLICT: Name already belongs to an existing institution");
+            }
 
-        InstitutionModel institutionModel = new InstitutionModel();
-        BeanUtils.copyProperties(institutionDTO, institutionModel);
+            InstitutionModel institutionModel = new InstitutionModel();
+            BeanUtils.copyProperties(institutionDTO, institutionModel);
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(institutionService.save(institutionModel));
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(institutionService.save(institutionModel));
+        } catch (Exception e) {
+            ConsoleLogUtil.log.info(Arrays.toString(e.getStackTrace()));
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("CONFLICT: Error while trying to save institution. Verify fields before continuing.");
+        }
     }
     //endregion
 }
