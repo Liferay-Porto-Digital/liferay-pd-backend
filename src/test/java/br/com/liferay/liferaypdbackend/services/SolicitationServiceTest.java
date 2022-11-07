@@ -5,7 +5,6 @@ import br.com.liferay.liferaypdbackend.models.InstitutionModel;
 import br.com.liferay.liferaypdbackend.models.SolicitationModel;
 import br.com.liferay.liferaypdbackend.models.product.FormModel;
 import br.com.liferay.liferaypdbackend.repositories.SolicitationRepository;
-import br.com.liferay.liferaypdbackend.services.SolicitationService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -26,7 +25,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class SolicitationServiceTeste {
+public class SolicitationServiceTest {
     @Mock
     SolicitationRepository solicitationRepository;
 
@@ -45,7 +44,7 @@ public class SolicitationServiceTeste {
         listSolicitations.add(solicitation1);
         listSolicitations.add(solicitation2);
         return listSolicitations;
-    };
+    }
     private List<FormModel> generateRepositoryForm(){
 
         List<FormModel> listForms = new ArrayList<>();
@@ -70,21 +69,25 @@ public class SolicitationServiceTeste {
         listForms.add(form1);
         listForms.add(form2);
         return listForms;
-    };
-
-    private SolicitationModel generateSolicitationModel(){
-        SolicitationModel solicitation = new SolicitationModel(generateCollaboratorModel(),"donation");
-        return solicitation;
-    };
+    }
 
     private CollaboratorModel generateCollaboratorModel(){
-        CollaboratorModel collaborator = new CollaboratorModel("Gabriel","Auxiliar Administrativo",true);
-        return collaborator;
-    };
+        return new CollaboratorModel("Gabriel","Auxiliar Administrativo",true);
+    }
     private InstitutionModel generateInstituitionModel(){
-        InstitutionModel institution = new InstitutionModel("IMIP","123233","(81) 3246-5784","imip@email.com","www.imip.com","saude","Coelhos","Recife","PE","00000-000");
-        return institution;
-    };
+        return new InstitutionModel (
+                "IMIP",
+                "123233",
+                "(81) 3246-5784",
+                "imip@email.com",
+                "www.imip.com",
+                "saude",
+                "Coelhos",
+                "Recife",
+                "PE",
+                "00000-000"
+        );
+    }
 
     //test of the findAll
     @Test
@@ -99,14 +102,16 @@ public class SolicitationServiceTeste {
     public void whenFindAllThenReturnListFormOrderedNewer(){
         when(solicitationRepository.findAllAndOrderByNewer()).thenReturn(generateRepositoryForm());
         assertNotNull(solicitationService.solicitationRepository.findAllAndOrderByNewer());
-        assertEquals(LocalDate.of(2022, 11, 4),solicitationService.solicitationRepository.findAllAndOrderByNewer().get(1).getDateOfEvent());
+        assertEquals(LocalDate.of(2022, 11, 4),solicitationService.solicitationRepository
+                .findAllAndOrderByNewer().get(1).getDateOfEvent());
     }
     //test of the findAllFormsAndOrderByOlder
     @Test
     public void whenFindAllThenReturnListFormOrderedOlder(){
         when(solicitationRepository.findAllAndOrderByOlder()).thenReturn(generateRepositoryForm());
         assertNotNull(solicitationService.findAllFormsAndOrderByOlder());
-        assertEquals(LocalDate.of(2022, 11, 5),solicitationService.findAllFormsAndOrderByOlder().get(0).getDateOfEvent());
+        assertEquals(LocalDate.of(2022, 11, 5),solicitationService
+                .findAllFormsAndOrderByOlder().get(0).getDateOfEvent());
     }
 
     //test of the findAllDonationForms
@@ -119,7 +124,7 @@ public class SolicitationServiceTeste {
 
     //test of the findAllActivityForms
     @Test
-    public void whenFindAllActivitythenReturnListFormsActivity(){
+    public void whenFindAllActivityThenReturnListFormsActivity(){
         when(solicitationRepository.findAllActivity()).thenReturn(generateRepositoryForm());
         assertNotNull(solicitationService.findAllActivityForms());
         assertEquals("activity",solicitationService.findAllActivityForms().get(1).getType());
@@ -130,20 +135,24 @@ public class SolicitationServiceTeste {
     public void whenFindAllInstitutionThenReturnListFormsInstitution(){
         when(solicitationRepository.findAllByInstitutionName(Mockito.anyString())).thenReturn(generateRepositoryForm());
         assertNotNull(solicitationService.findAllFormsByInstitutionName("IMIP"));
-        assertEquals("IMIP",solicitationService.findAllFormsByInstitutionName("IMIP").get(0).getInstitution().getName());
+        assertEquals("IMIP",solicitationService.findAllFormsByInstitutionName("IMIP").get(0).getInstitution()
+                .getName());
     }
 
     //test of the findAllFormsByCollaboratorName
     @Test
     public void whenFindAllFormsByCollaboratorThenReturnFormCollaborator(){
-        when(solicitationRepository.findAllByCollaboratorName(Mockito.anyString())).thenReturn(generateRepositoryForm());
+        when(solicitationRepository.findAllByCollaboratorName(Mockito.anyString()))
+                .thenReturn(generateRepositoryForm());
         assertNotNull(solicitationService.findAllFormsByCollaboratorName("Gabriel"));
-        assertEquals("Gabriel",solicitationService.findAllFormsByCollaboratorName("Gabriel").get(0).getCollaborator().getName());
+        assertEquals("Gabriel",solicitationService.findAllFormsByCollaboratorName("Gabriel").get(0)
+                .getCollaborator().getName());
     }
     //test of the findCollaboratorByName
     @Test
     public void whenFindCollaboratorThenReturnFormCollaboratorModel(){
-        when(solicitationRepository.findCollaboratorByName(Mockito.anyString())).thenReturn(Optional.of(generateCollaboratorModel()));
+        when(solicitationRepository.findCollaboratorByName(Mockito.anyString()))
+                .thenReturn(Optional.of(generateCollaboratorModel()));
         assertNotNull(solicitationService.findCollaboratorByName("Gabriel"));
         assertEquals("Gabriel",solicitationService.findCollaboratorByName("Gabriel").getName());
     }
