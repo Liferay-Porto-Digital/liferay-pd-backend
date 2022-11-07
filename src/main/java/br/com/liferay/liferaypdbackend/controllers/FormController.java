@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -44,7 +45,7 @@ public class FormController {
 
     @PostMapping("form/add/donation")
     @ApiOperation(value = "Add a donation form on the database")
-    public ResponseEntity<Object> addDonationForm(FormDTO formDTO) {
+    public ResponseEntity<Object> addDonationForm(@RequestBody @Valid FormDTO formDTO) {
         try {
             FormModel donationFormModel = formFactoryMethod.createForm(
                     "donation",
@@ -68,7 +69,7 @@ public class FormController {
 
     @PostMapping("form/add/activity")
     @ApiOperation(value = "Add am activity form on the database")
-    public ResponseEntity<Object> addActivityForm(FormDTO formDTO) {
+    public ResponseEntity<Object> addActivityForm(@RequestBody @Valid FormDTO formDTO) {
         try {
             FormModel donationFormModel = formFactoryMethod.createForm (
                     "activity",
