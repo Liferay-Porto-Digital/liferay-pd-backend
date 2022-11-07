@@ -24,10 +24,12 @@ public class ReportService {
                 new ReportModel (
                         reportRepository.countAllDonations(),
                         reportRepository.countDonationAmount(),
-                        reportRepository.countDonationAmount() / reportRepository.countAllInstitutions(),
+                        reportRepository.countDonationAmount() /
+                                reportRepository.countAllInstitutions(),
                         reportRepository.countAllActivities(),
                         reportRepository.countActivityAmount(),
-                        reportRepository.countActivityAmount() / reportRepository.countAllInstitutions()
+                        reportRepository.countActivityAmount() /
+                                reportRepository.countAllInstitutions()
                 )
         );
     }
