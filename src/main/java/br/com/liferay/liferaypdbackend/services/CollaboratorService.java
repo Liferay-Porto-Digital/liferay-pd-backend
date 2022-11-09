@@ -4,6 +4,7 @@ import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
 import br.com.liferay.liferaypdbackend.repositories.CollaboratorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,7 +22,7 @@ public class CollaboratorService {
         if (!collaboratorRepository.findAll().isEmpty()) {
             return collaboratorRepository.findAll();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public CollaboratorModel findByName(String name) {

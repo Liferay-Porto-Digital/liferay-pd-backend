@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InstitutionService {
@@ -42,11 +43,11 @@ public class InstitutionService {
         return null;
     }
 
-    public InstitutionModel findByName(String name) {
+    public Optional<InstitutionModel> findByName(String name) {
         if (institutionRepository.findByName(name).isPresent()) {
-            return institutionRepository.findByName(name).get();
+            return institutionRepository.findByName(name);
         }
-        return null;
+        return Optional.empty();
     }
 
     public boolean existsByRegistrationNumber(String registrationNumber) {
