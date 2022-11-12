@@ -16,3 +16,8 @@
 - **Run Project:** LiferayPdBackendApplication.java
 - **Access Swagger To See API Documentation:** [Swagger Link](http://localhost:8080/swagger-ui.html) (Click here once the API is running locally)
 - **(RECOMMENDED) Use Postman To Test Endpoints:** [Postman](https://www.postman.com/downloads/)
+
+## How To Consume API
+- **Access Base URL:** https://evp-api.herokuapp.com
+- **Check API Swagger Documentation:** https://evp-api.herokuapp.com/swagger-ui.html
+- **Use it freely!**
