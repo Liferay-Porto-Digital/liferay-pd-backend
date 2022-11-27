@@ -42,7 +42,7 @@ public class FormService {
     public InstitutionModel saveOrGetInstitution(FormDTO formDTO) {
 
         InstitutionDTO institutionDTO = new InstitutionDTO (
-                formDTO.getInstitutionName().trim().toLowerCase(),
+                formDTO.getInstitutionName().trim().toUpperCase(),
                 formDTO.getInstitutionRegistrationNumber(),
                 formDTO.getInstitutionPhoneNumber(),
                 formDTO.getInstitutionEmail(),
