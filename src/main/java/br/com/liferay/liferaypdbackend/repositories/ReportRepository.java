@@ -20,10 +20,10 @@ public interface ReportRepository extends JpaRepository<ReportModel, UUID> {
     @Query(value = "select count(institution) from InstitutionModel institution")
     Integer countAllInstitutions();
 
-    @Query(value = "select count(form.value) from FormModel form where form.type = 'donation'")
+    @Query(value = "select sum(form.value) from FormModel form where form.type = 'donation'")
     Double countDonationAmount();
 
-    @Query(value = "select count(form.value) from FormModel form where form.type = 'activity'")
+    @Query(value = "select sum(form.value) from FormModel form where form.type = 'activity'")
     Double countActivityAmount();
 
     @Query(value = "select report from ReportModel report order by report.reportUpdateDate desc")
