@@ -33,19 +33,26 @@ public class FormController {
     @GetMapping("form")
     @ApiOperation(value = "Get a list with all forms on the database")
     public ResponseEntity<Object> getAllForms() {
-        if (!formService.findAll().isEmpty()) {
+        try {
+            if (!formService.findAll().isEmpty()) {
+                return ResponseEntity
+                        .status(HttpStatus.FOUND)
+                        .body(formService.findAll());
+            }
             return ResponseEntity
-                    .status(HttpStatus.FOUND)
-                    .body(formService.findAll());
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("NOT FOUND: No forms registered. Please register a form before continuing.");
+        } catch (Exception e) {
+            ConsoleLogUtil.log.info(Arrays.toString(e.getStackTrace()));
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("NOT FOUND: No forms registered. Please register a form before continuing.");
         }
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body("NOT FOUND: No forms registered. Please register a form before continuing.");
     }
 
     @PostMapping("form/add/donation")
     @ApiOperation(value = "Add a donation form on the database")
-    public ResponseEntity<Object> addDonationForm(@RequestBody @Valid FormDTO formDTO) {
+    public ResponseEntity<Object> addDonationForm(@RequestBody FormDTO formDTO) {
         try {
             FormModel donationFormModel = formFactoryMethod.createForm(
                     "donation",
@@ -69,7 +76,7 @@ public class FormController {
 
     @PostMapping("form/add/activity")
     @ApiOperation(value = "Add am activity form on the database")
-    public ResponseEntity<Object> addActivityForm(@RequestBody @Valid FormDTO formDTO) {
+    public ResponseEntity<Object> addActivityForm(@RequestBody FormDTO formDTO) {
         try {
             FormModel donationFormModel = formFactoryMethod.createForm (
                     "activity",
