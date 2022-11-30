@@ -18,6 +18,10 @@ public class ReportService {
     //endregion
 
     //region METHODS
+    public ReportModel save(ReportModel reportModel) {
+        return reportRepository.save(reportModel);
+    }
+
     public ReportModel saveOrGetInstitution() {
         ReportModel reportModel = new ReportModel (
                 reportRepository.countAllDonations(),
@@ -52,7 +56,7 @@ public class ReportService {
             ).get();
         }
 
-        return reportRepository.save(reportModel);
+        return save(reportModel);
     }
 
     public List<ReportModel> findAll() {
