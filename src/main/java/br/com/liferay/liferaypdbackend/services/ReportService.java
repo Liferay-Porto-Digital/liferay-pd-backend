@@ -18,58 +18,41 @@ public class ReportService {
     //endregion
 
     //region METHODS
-    @Transactional
-    public ReportModel save() {
-        if (reportRepository.countAllDonations() == 0) {
-            return reportRepository.save (
-                    new ReportModel (
-                            reportRepository.countAllDonations(),
-                            0.0,
-                            0.0,
-                            reportRepository.countAllActivities(),
-                            reportRepository.countActivityAmount(),
-                            reportRepository.countActivityAmount() /
-                                    reportRepository.countAllInstitutions()
-                    )
-            );
-        }
-        if (reportRepository.countAllActivities() == 0) {
-            return reportRepository.save (
-                    new ReportModel (
-                            reportRepository.countAllDonations(),
-                            reportRepository.countDonationAmount(),
-                            reportRepository.countDonationAmount() /
-                                    reportRepository.countAllInstitutions(),
-                            reportRepository.countAllActivities(),
-                            0.0,
-                            0.0
-                    )
-            );
-        }
-        if (reportRepository.countAllInstitutions() == 0) {
-            return reportRepository.save (
-                    new ReportModel (
-                            reportRepository.countAllDonations(),
-                            reportRepository.countDonationAmount(),
-                            0.0,
-                            reportRepository.countAllActivities(),
-                            reportRepository.countActivityAmount(),
-                            0.0
-                    )
-            );
-        }
-        return reportRepository.save (
-                new ReportModel (
-                        reportRepository.countAllDonations(),
-                        reportRepository.countDonationAmount(),
-                        reportRepository.countDonationAmount() /
-                                reportRepository.countAllInstitutions(),
-                        reportRepository.countAllActivities(),
-                        reportRepository.countActivityAmount(),
-                        reportRepository.countActivityAmount() /
-                                reportRepository.countAllInstitutions()
-                )
+    public ReportModel saveOrGetInstitution() {
+        ReportModel reportModel = new ReportModel (
+                reportRepository.countAllDonations(),
+                reportRepository.countDonationAmount(),
+                reportRepository.countDonationAmount() /
+                        reportRepository.countAllInstitutions(),
+                reportRepository.countAllActivities(),
+                reportRepository.countActivityAmount(),
+                reportRepository.countActivityAmount() /
+                        reportRepository.countAllInstitutions()
         );
+
+        if (reportRepository.findReportWithSameFields(
+                reportRepository.countAllDonations(),
+                reportRepository.countDonationAmount(),
+                reportRepository.countDonationAmount() /
+                        reportRepository.countAllInstitutions(),
+                reportRepository.countAllActivities(),
+                reportRepository.countActivityAmount(),
+                reportRepository.countActivityAmount() /
+                        reportRepository.countAllInstitutions()
+        ).isPresent()) {
+            return reportRepository.findReportWithSameFields(
+                    reportRepository.countAllDonations(),
+                    reportRepository.countDonationAmount(),
+                    reportRepository.countDonationAmount() /
+                            reportRepository.countAllInstitutions(),
+                    reportRepository.countAllActivities(),
+                    reportRepository.countActivityAmount(),
+                    reportRepository.countActivityAmount() /
+                            reportRepository.countAllInstitutions()
+            ).get();
+        }
+
+        return reportRepository.save(reportModel);
     }
 
     public List<ReportModel> findAll() {

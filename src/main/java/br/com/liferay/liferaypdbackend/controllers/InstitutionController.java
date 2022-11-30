@@ -29,14 +29,21 @@ public class InstitutionController {
     @GetMapping("institution")
     @ApiOperation(value = "Get a list with all institutions on the database")
     public ResponseEntity<Object> getAllInstitutions() {
-        if (!institutionService.findAll().isEmpty()) {
+        try {
+            if (!institutionService.findAll().isEmpty()) {
+                return ResponseEntity
+                        .status(HttpStatus.FOUND)
+                        .body(institutionService.findAll());
+            }
             return ResponseEntity
                     .status(HttpStatus.FOUND)
                     .body(institutionService.findAll());
+        } catch (Exception e) {
+            ConsoleLogUtil.log.info(Arrays.toString(e.getStackTrace()));
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("INSTITUTION LIST NOT FOUND: Please register a institution before calling this endpoint again.");
         }
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body("INSTITUTION LIST NOT FOUND: Please register a institution before calling this endpoint again.");
     }
 
     @GetMapping("institution/{name}")
