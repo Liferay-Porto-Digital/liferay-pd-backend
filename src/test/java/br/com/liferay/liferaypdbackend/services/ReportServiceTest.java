@@ -59,8 +59,9 @@ public class ReportServiceTest {
     public void whenSaveReportThenReturnReportModel() {
         //Execution
         when(reportRepository.save(Mockito.any())).thenReturn(generateRepositoryReport().get(0));
-        Assertions.assertNotNull(reportService.save());
-        Assertions.assertEquals(10,reportService.save().getNumberOfDonations());
+        ReportModel reportModel = new ReportModel();
+        Assertions.assertNotNull(reportService.save(reportModel));
+        Assertions.assertEquals(10,reportService.save(reportModel).getNumberOfDonations());
     }
 
     //teste do findAll()
