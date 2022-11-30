@@ -38,12 +38,12 @@ public class ReportController {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(reportService.save());
+                    .body(reportService.saveOrGetInstitution());
         } catch (Exception e) {
             ConsoleLogUtil.log.info(Arrays.toString(e.getStackTrace()));
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
-                    .body("CONFLICT: Error while trying to save report. Verify fields before continuing.");
+                    .body("CONFLICT: Error while trying to processing report. Verify fields before continuing.");
         }
     }
 
