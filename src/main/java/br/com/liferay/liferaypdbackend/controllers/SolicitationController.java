@@ -82,11 +82,11 @@ public class SolicitationController {
     @GetMapping("solicitations/institution/{name}")
     @ApiOperation(value = "Get all solicitations done to given institution")
     public ResponseEntity<Object> getAllSolicitationByInstitution(@PathVariable String name) {
-        if (!solicitationService.findAllFormsByInstitutionName(name).isEmpty()) {
+        if (!solicitationService.findAllFormsByInstitutionName(name.toUpperCase()).isEmpty()) {
             registerSolicitation("Get solicitations for institution");
             return ResponseEntity
                     .status(HttpStatus.FOUND)
-                    .body(solicitationService.findAllFormsByInstitutionName(name));
+                    .body(solicitationService.findAllFormsByInstitutionName(name.toUpperCase()));
         }
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
