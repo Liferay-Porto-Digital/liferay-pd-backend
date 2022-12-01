@@ -33,6 +33,10 @@ public class SolicitationService {
         return null;
     }
 
+    public List<FormModel> findAllForms() {
+        return solicitationRepository.findAllForms();
+    }
+
     public List<FormModel> findAllFormsOrderByNewer() {
         return solicitationRepository.findAllAndOrderByNewer();
     }
