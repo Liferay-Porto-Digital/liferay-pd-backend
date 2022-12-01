@@ -27,10 +27,10 @@ public class SolicitationController {
     @ApiOperation(value = "Get all solicitations")
     public ResponseEntity<Object> getAllSolicitations() {
         if (!solicitationService.findAll().isEmpty()) {
-            registerSolicitation("Get solicitation registrations");
+            registerSolicitation("Get all solicitation registrations");
             return ResponseEntity
                     .status(HttpStatus.FOUND)
-                    .body(solicitationService.findAll());
+                    .body(solicitationService.findAllForms());
         }
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)

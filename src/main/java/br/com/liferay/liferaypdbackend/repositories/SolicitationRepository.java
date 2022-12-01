@@ -14,6 +14,9 @@ import java.util.UUID;
 
 @Repository
 public interface SolicitationRepository extends JpaRepository<SolicitationModel, UUID> {
+    @Query(value = "select form from FormModel form")
+    List<FormModel> findAllForms();
+
     @Query(value = "select form from FormModel form order by form.dateOfCreation desc")
     List<FormModel> findAllAndOrderByNewer();
 
