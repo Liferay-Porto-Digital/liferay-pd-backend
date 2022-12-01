@@ -4,7 +4,6 @@ import br.com.liferay.liferaypdbackend.models.ReportModel;
 import br.com.liferay.liferaypdbackend.repositories.ReportRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
