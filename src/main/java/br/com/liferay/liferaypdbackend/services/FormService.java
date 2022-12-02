@@ -20,7 +20,8 @@ public class FormService {
     final InstitutionRepository institutionRepository;
     final CollaboratorRepository collaboratorRepository;
 
-    public FormService(FormRepository formRepository, InstitutionRepository institutionRepository, CollaboratorRepository collaboratorRepository) {
+    public FormService(FormRepository formRepository, InstitutionRepository institutionRepository,
+                       CollaboratorRepository collaboratorRepository) {
         this.formRepository = formRepository;
         this.institutionRepository = institutionRepository;
         this.collaboratorRepository = collaboratorRepository;
@@ -55,7 +56,8 @@ public class FormService {
         );
         InstitutionModel institutionModel = new InstitutionModel();
         BeanUtils.copyProperties(institutionDTO, institutionModel);
-        if (!institutionRepository.existsByName(institutionModel.getName()) && !institutionRepository.findByName(institutionModel.getName()).isPresent()) {
+        if (!institutionRepository.existsByName(institutionModel.getName()) &&
+                !institutionRepository.findByName(institutionModel.getName()).isPresent()) {
             return institutionRepository.save(institutionModel);
         }
         return institutionRepository.findByName(institutionModel.getName()).get();
@@ -66,6 +68,21 @@ public class FormService {
             return collaboratorRepository.findAll().get(0);
         }
         return null;
+    }
+
+    public FormModel updateInstitutionNumberOfActionsReceived(FormModel formModel) {
+        Integer numberOfActionsReceived = institutionRepository.getInstitutionNumberOfActionsReceived(
+                formModel.getInstitution().getId()
+        );
+
+        institutionRepository.updateInstitutionNumberOfActionsReceived(
+                numberOfActionsReceived,
+                formModel.getInstitution().getId()
+        );
+
+        formModel.getInstitution().setNumberOfActionsReceived(numberOfActionsReceived);
+
+        return formModel;
     }
     //endregion
 }
