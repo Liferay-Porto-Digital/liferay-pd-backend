@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.UUID;
 
 /**
@@ -52,10 +53,26 @@ public class InstitutionModel {
 
     @Column(nullable = false, length = 8)
     private String zipCode;
+
+    @Column(nullable = false)
+    private LocalDate dateOfCreation = LocalDate.now();
+
+    @Column(nullable = false)
+    private Integer numberOfActionsReceived = 0;
     //endregion
 
     //region CONSTRUCTORS
-    public InstitutionModel(String name, String registrationNumber, String phoneNumber, String email, String url, String description, String street, String city, String state, String zipCode) {
+    public InstitutionModel(
+            String name,
+            String registrationNumber,
+            String phoneNumber,
+            String email,
+            String url,
+            String description,
+            String street,
+            String city,
+            String state,
+            String zipCode) {
         this.name = name;
         this.registrationNumber = registrationNumber;
         this.phoneNumber = phoneNumber;
@@ -66,6 +83,8 @@ public class InstitutionModel {
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
+        this.dateOfCreation = LocalDate.now();
+        this.numberOfActionsReceived = 0;
     }
     //endregion
 }
