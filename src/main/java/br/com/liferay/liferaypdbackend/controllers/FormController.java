@@ -64,7 +64,7 @@ public class FormController {
             );
             return ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body(formService.save(donationFormModel));
+                    .body(formService.updateInstitutionNumberOfActionsReceived(formService.save(donationFormModel)));
         } catch (Exception e) {
             ConsoleLogUtil.log.info(Arrays.toString(e.getStackTrace()));
             return ResponseEntity
@@ -77,7 +77,7 @@ public class FormController {
     @ApiOperation(value = "Add am activity form on the database")
     public ResponseEntity<Object> addActivityForm(@RequestBody FormDTO formDTO) {
         try {
-            FormModel donationFormModel = formFactoryMethod.createForm (
+            FormModel activityFormModel = formFactoryMethod.createForm (
                     "activity",
                     formService.getCollaborator(),
                     formService.saveOrGetInstitution(formDTO),
@@ -88,7 +88,7 @@ public class FormController {
             );
             return ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body(formService.save(donationFormModel));
+                    .body(formService.updateInstitutionNumberOfActionsReceived(formService.save(activityFormModel)));
         } catch (Exception e) {
             ConsoleLogUtil.log.info(Arrays.toString(e.getStackTrace()));
             return ResponseEntity
