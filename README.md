@@ -1,4 +1,5 @@
 # Liferay EVP API (ENG-US)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ed5ae49096d0451e91160842729939ad)](https://www.codacy.com/gh/Liferay-Porto-Digital/liferay-pd-backend/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Liferay-Porto-Digital/liferay-pd-backend&amp;utm_campaign=Badge_Grade)
 >  REST API developed for Liferay on Porto Digital Residency Program
 
 ## General Information
