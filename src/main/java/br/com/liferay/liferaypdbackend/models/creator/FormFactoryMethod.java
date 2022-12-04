@@ -2,6 +2,8 @@ package br.com.liferay.liferaypdbackend.models.creator;
 
 import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
+import br.com.liferay.liferaypdbackend.models.ObjectiveModel;
+import br.com.liferay.liferaypdbackend.models.VulnerabilityModel;
 import br.com.liferay.liferaypdbackend.models.concrete_product.ActivityFormModel;
 import br.com.liferay.liferaypdbackend.models.concrete_product.DonationFormModel;
 import br.com.liferay.liferaypdbackend.models.product.FormModel;
@@ -15,20 +17,69 @@ import java.time.LocalDate;
 @Component
 public class FormFactoryMethod {
     //region METHODS
-    public FormModel createForm(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
+    public FormModel createForm(
+            String typeOfForm,
+            CollaboratorModel formCreator,
+            InstitutionModel destinedInstitutionModel,
+            ObjectiveModel objectiveModel,
+            VulnerabilityModel vulnerabilityModel,
+            String nameOfContact,
+            String lastNameOfContact,
+            LocalDate dateOfEvent,
+            Double value
+    ) {
         FormModel formModel;
-        formModel = buildForm(typeOfForm, formCreator, destinedInstitutionModel, nameOfContact, lastNameOfContact, dateOfEvent, value);
+        formModel = buildForm(
+                typeOfForm,
+                formCreator,
+                destinedInstitutionModel,
+                objectiveModel,
+                vulnerabilityModel,
+                nameOfContact,
+                lastNameOfContact,
+                dateOfEvent,
+                value
+        );
         return formModel;
     }
 
-    private FormModel buildForm(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
+    private FormModel buildForm(
+            String typeOfForm,
+            CollaboratorModel formCreator,
+            InstitutionModel destinedInstitutionModel,
+            ObjectiveModel objectiveModel,
+            VulnerabilityModel vulnerabilityModel,
+            String nameOfContact,
+            String lastNameOfContact,
+            LocalDate dateOfEvent,
+            Double value
+    ) {
         switch (typeOfForm) {
             case "donation":
-                return new DonationFormModel(typeOfForm, formCreator, destinedInstitutionModel, nameOfContact, lastNameOfContact, dateOfEvent, value);
+                return new DonationFormModel(
+                        typeOfForm,
+                        formCreator,
+                        destinedInstitutionModel,
+                        objectiveModel,
+                        vulnerabilityModel,
+                        nameOfContact,
+                        lastNameOfContact,
+                        dateOfEvent,
+                        value
+                );
             case "activity":
-                return new ActivityFormModel(typeOfForm, formCreator, destinedInstitutionModel, nameOfContact, lastNameOfContact, dateOfEvent, value);
+                return new ActivityFormModel(
+                        typeOfForm,
+                        formCreator,
+                        destinedInstitutionModel,
+                        objectiveModel,
+                        vulnerabilityModel,
+                        nameOfContact,
+                        lastNameOfContact,
+                        dateOfEvent,
+                        value
+                );
             default:
-                //TODO: See viability of throwing an exception here
                 return null;
         }
     }

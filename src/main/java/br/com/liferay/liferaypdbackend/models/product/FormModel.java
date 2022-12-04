@@ -2,12 +2,13 @@ package br.com.liferay.liferaypdbackend.models.product;
 
 import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
+import br.com.liferay.liferaypdbackend.models.ObjectiveModel;
+import br.com.liferay.liferaypdbackend.models.VulnerabilityModel;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -28,11 +29,11 @@ public abstract class FormModel {
     @ManyToOne
     private InstitutionModel institution;
 
-    @ElementCollection
-    private List<String> objective;
+    @ManyToOne
+    private ObjectiveModel objectives;
 
-    @ElementCollection
-    private List<String> vulnerability;
+    @ManyToOne
+    private VulnerabilityModel vulnerabilities;
 
     @Column(nullable = false)
     private LocalDateTime dateOfCreation;
@@ -58,10 +59,12 @@ public abstract class FormModel {
         this.dateOfCreation = LocalDateTime.now();
     }
 
-    public FormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
+    public FormModel(String typeOfForm, CollaboratorModel formCreator, InstitutionModel destinedInstitutionModel, ObjectiveModel objectiveModel, VulnerabilityModel vulnerabilityModel, String nameOfContact, String lastNameOfContact, LocalDate dateOfEvent, Double value) {
         this.dateOfCreation = LocalDateTime.now();
         this.collaborator = formCreator;
         this.institution = destinedInstitutionModel;
+        this.objectives = objectiveModel;
+        this.vulnerabilities = vulnerabilityModel;
         this.nameContact = nameOfContact;
         this.lastNameContact = lastNameOfContact;
         this.dateOfEvent = dateOfEvent;
