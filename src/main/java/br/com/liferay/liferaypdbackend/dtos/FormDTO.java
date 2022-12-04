@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Data
 public class FormDTO {
@@ -30,11 +29,27 @@ public class FormDTO {
     @Size(max = 8)
     private String institutionZipCode;
 
-    @NotBlank
-    private List<String> objective;
+    private Boolean disasterObjective = false;
 
-    @NotBlank
-    private List<String> vulnerability;
+    private Boolean suppliesObjective = false;
+
+    private Boolean healthObjective = false;
+
+    private Boolean educationObjective = false;
+
+    private Boolean justiceObjective = false;
+
+    private Boolean professionalObjective = false;
+
+    private String otherObjective = "";
+
+    private Boolean monetaryVulnerability = false;
+
+    private Boolean healthVulnerability = false;
+
+    private Boolean homelessVulnerability = false;
+
+    private String otherVulnerability = "";
 
     @NotBlank
     private String dateOfEvent;
