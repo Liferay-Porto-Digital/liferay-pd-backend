@@ -27,7 +27,7 @@ public class SolicitationController {
     @ApiOperation(value = "Get all solicitations")
     public ResponseEntity<Object> getAllSolicitations() {
         if (!solicitationService.findAll().isEmpty()) {
-            registerSolicitation("Get all solicitation registrations");
+//            registerSolicitation("Get all solicitation registrations");
             return ResponseEntity
                     .status(HttpStatus.FOUND)
                     .body(solicitationService.findAllForms());
@@ -41,7 +41,7 @@ public class SolicitationController {
     @ApiOperation(value = "Get all solicitations ordered by the new ones")
     public ResponseEntity<Object> getAllRecentSolicitation() {
         if (!solicitationService.findAllFormsOrderByNewer().isEmpty()) {
-            registerSolicitation("Get all solicitations ordered by newer");
+//            registerSolicitation("Get all solicitations ordered by newer");
             return  ResponseEntity
                     .status(HttpStatus.FOUND)
                     .body(solicitationService.findAllFormsOrderByNewer());
@@ -55,7 +55,7 @@ public class SolicitationController {
     @ApiOperation(value = "Get all solicitations ordered by the old ones")
     public ResponseEntity<Object> getAllOlderSolicitation() {
         if (!solicitationService.findAllFormsAndOrderByOlder().isEmpty()) {
-            registerSolicitation("Get all solicitations ordered by older");
+//            registerSolicitation("Get all solicitations ordered by older");
             return ResponseEntity
                     .status(HttpStatus.FOUND)
                     .body(solicitationService.findAllFormsAndOrderByOlder());
@@ -69,7 +69,7 @@ public class SolicitationController {
     @ApiOperation(value = "Get all solicitations done by given collaborator")
     public ResponseEntity<Object> getAllSolicitationByCollaborator(@PathVariable String name) {
         if (!solicitationService.findAllFormsByCollaboratorName(name).isEmpty()) {
-            registerSolicitation("Get solicitations done by collaborator");
+//            registerSolicitation("Get solicitations done by collaborator");
             return ResponseEntity
                     .status(HttpStatus.FOUND)
                     .body(solicitationService.findAllFormsByCollaboratorName(name));
@@ -83,7 +83,7 @@ public class SolicitationController {
     @ApiOperation(value = "Get all solicitations done to given institution")
     public ResponseEntity<Object> getAllSolicitationByInstitution(@PathVariable String name) {
         if (!solicitationService.findAllFormsByInstitutionName(name.toUpperCase()).isEmpty()) {
-            registerSolicitation("Get solicitations for institution");
+//            registerSolicitation("Get solicitations for institution");
             return ResponseEntity
                     .status(HttpStatus.FOUND)
                     .body(solicitationService.findAllFormsByInstitutionName(name.toUpperCase()));
@@ -97,7 +97,7 @@ public class SolicitationController {
     @ApiOperation(value = "Get all donation type solicitation")
     public ResponseEntity<Object> getAllSolicitationTypeDonation() {
         if (!solicitationService.findAllDonationForms().isEmpty()) {
-            registerSolicitation("Get donation form");
+//            registerSolicitation("Get donation form");
             return ResponseEntity
                     .status(HttpStatus.FOUND)
                     .body(solicitationService.findAllDonationForms());
@@ -111,7 +111,7 @@ public class SolicitationController {
     @ApiOperation(value = "Get all activity type solicitation")
     public ResponseEntity<Object> getAllSolicitationTypeActivity() {
         if (!solicitationService.findAllActivityForms().isEmpty()) {
-            registerSolicitation("Get activity form");
+//            registerSolicitation("Get activity form");
             return ResponseEntity
                     .status(HttpStatus.FOUND)
                     .body(solicitationService.findAllActivityForms());
@@ -121,13 +121,13 @@ public class SolicitationController {
                 .body("NOT FOUND: No solicitation of type activity registered on the database.");
     }
 
-    public void registerSolicitation(String typeOfSolicitation) {
-        try {
-            SolicitationModel solicitationModel = new SolicitationModel(solicitationService.findCollaboratorByName("Maria"), typeOfSolicitation);
-            solicitationService.save(solicitationModel);
-        } catch (Exception e) {
-            ConsoleLogUtil.log.info(Arrays.toString(e.getStackTrace()));
-        }
-    }
+//    public void registerSolicitation(String typeOfSolicitation) {
+//        try {
+//            SolicitationModel solicitationModel = new SolicitationModel(solicitationService.findCollaboratorByName("Maria"), typeOfSolicitation);
+//            solicitationService.save(solicitationModel);
+//        } catch (Exception e) {
+//            ConsoleLogUtil.log.info(Arrays.toString(e.getStackTrace()));
+//        }
+//    }
     //endregion
 }

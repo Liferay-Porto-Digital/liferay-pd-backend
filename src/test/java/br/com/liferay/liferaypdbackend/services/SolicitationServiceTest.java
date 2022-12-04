@@ -1,8 +1,6 @@
 package br.com.liferay.liferaypdbackend.services;
 
-import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
-import br.com.liferay.liferaypdbackend.models.InstitutionModel;
-import br.com.liferay.liferaypdbackend.models.SolicitationModel;
+import br.com.liferay.liferaypdbackend.models.*;
 import br.com.liferay.liferaypdbackend.models.product.FormModel;
 import br.com.liferay.liferaypdbackend.repositories.SolicitationRepository;
 import org.junit.Before;
@@ -53,6 +51,8 @@ public class SolicitationServiceTest {
                 "donation",
                 generateCollaboratorModel(),
                 generateInstituitionModel(),
+                new ObjectiveModel(),
+                new VulnerabilityModel(),
                 "Gabriel",
                 "Barbosa",
                 LocalDate.of(2022, 11, 5),
@@ -62,6 +62,8 @@ public class SolicitationServiceTest {
                 "activity",
                 generateCollaboratorModel(),
                 generateInstituitionModel(),
+                new ObjectiveModel(),
+                new VulnerabilityModel(),
                 "Gabriel",
                 "Barbosa",
                 LocalDate.of(2022, 11, 4),
