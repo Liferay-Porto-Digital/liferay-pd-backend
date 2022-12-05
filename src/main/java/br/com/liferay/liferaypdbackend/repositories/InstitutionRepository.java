@@ -27,17 +27,13 @@ public interface InstitutionRepository extends JpaRepository<InstitutionModel, U
     boolean existsByName(String name);
 
     @Query(value = "select institution from InstitutionModel institution " +
-            "inner join FormModel form " +
-            "on institution.id = form.institution.id " +
             "group by institution.id " +
-            "order by count(institution) desc")
+            "order by institution.numberOfActionsReceived desc")
     List<InstitutionModel> getInstitutionListWithMoreSolicitations();
 
     @Query(value = "select institution from InstitutionModel institution " +
-            "inner join FormModel form " +
-            "on institution.id = form.institution.id " +
             "group by institution.id " +
-            "order by count(institution)")
+            "order by institution.numberOfActionsReceived")
     List<InstitutionModel> getInstitutionListWithLessSolicitations();
 
     @Query(value = "select count(form) from FormModel form where form.institution.id = :institutionId")
