@@ -61,7 +61,7 @@ public class FormController {
                     formService.saveOrGetVulnerability(formDTO),
                     formDTO.getNameContact(),
                     formDTO.getLastNameContact(),
-                    LocalDate.parse(formDTO.getDateOfEvent(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    LocalDate.parse(formDTO.getDateOfEvent(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                     formDTO.getValue()
             );
             return ResponseEntity
@@ -87,7 +87,7 @@ public class FormController {
                     formService.saveOrGetVulnerability(formDTO),
                     formDTO.getNameContact(),
                     formDTO.getLastNameContact(),
-                    LocalDate.parse(formDTO.getDateOfEvent(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    LocalDate.parse(formDTO.getDateOfEvent(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                     formDTO.getValue()
             );
             return ResponseEntity
