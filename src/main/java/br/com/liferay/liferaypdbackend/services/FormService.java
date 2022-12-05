@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class FormService {
@@ -72,36 +73,36 @@ public class FormService {
     }
 
     public VulnerabilityModel saveOrGetVulnerability(FormDTO formDTO) {
-        VulnerabilityModel vulnerabilityModel = new VulnerabilityModel(
+        return vulnerabilityRepository.save(new VulnerabilityModel(
                 formDTO.getMonetaryVulnerability(),
                 formDTO.getHealthVulnerability(),
                 formDTO.getHomelessVulnerability(),
                 formDTO.getOtherVulnerability().trim().toUpperCase()
-        );
+        ));
 
-        Boolean vulnerabilityExists = vulnerabilityRepository.existsByOtherAndMonetaryAndHealthAndHomeless(
-                formDTO.getOtherVulnerability(),
-                formDTO.getMonetaryVulnerability(),
-                formDTO.getHealthVulnerability(),
-                formDTO.getHomelessVulnerability()
-        );
-
-        Optional<VulnerabilityModel> optional = vulnerabilityRepository.findByAll(
-            vulnerabilityModel.getOther(),
-            vulnerabilityModel.getMonetary(),
-            vulnerabilityModel.getHealth(),
-            vulnerabilityModel.getHomeless()
-        );
-
-        if (vulnerabilityExists && optional.isPresent()) {
-            return optional.get();
-        }
-
-        return vulnerabilityRepository.save(vulnerabilityModel);
+//        Boolean vulnerabilityExists = vulnerabilityRepository.existsByOtherAndMonetaryAndHealthAndHomeless(
+//                formDTO.getOtherVulnerability(),
+//                formDTO.getMonetaryVulnerability(),
+//                formDTO.getHealthVulnerability(),
+//                formDTO.getHomelessVulnerability()
+//        );
+//
+//        Optional<VulnerabilityModel> optional = vulnerabilityRepository.findByAll(
+//            vulnerabilityModel.getOther(),
+//            vulnerabilityModel.getMonetary(),
+//            vulnerabilityModel.getHealth(),
+//            vulnerabilityModel.getHomeless()
+//        );
+//
+//        if (vulnerabilityExists && optional.isPresent()) {
+//            return optional.get();
+//        }
+//
+//        return vulnerabilityRepository.save(vulnerabilityModel);
     }
 
     public ObjectiveModel saveOrGetObjective(FormDTO formDTO) {
-        ObjectiveModel objectiveModel =  new ObjectiveModel(
+        return objectiveRepository.save(new ObjectiveModel(
                 formDTO.getDisasterObjective(),
                 formDTO.getSuppliesObjective(),
                 formDTO.getHealthObjective(),
@@ -109,34 +110,33 @@ public class FormService {
                 formDTO.getJusticeObjective(),
                 formDTO.getProfessionalObjective(),
                 formDTO.getOtherObjective().trim().toUpperCase()
-        );
+        ));
 
-        Boolean objectExists = objectiveRepository.existsByOtherAndDisasterAndSuppliesAndHealthAndEducationAndJusticeAndProfessional(
-                objectiveModel.getOther(),
-                objectiveModel.getDisaster(),
-                objectiveModel.getSupplies(),
-                objectiveModel.getHealth(),
-                objectiveModel.getEducation(),
-                objectiveModel.getJustice(),
-                objectiveModel.getProfessional()
-        );
-
-        Optional<ObjectiveModel> optional = objectiveRepository.findByAll(
-                objectiveModel.getOther(),
-                objectiveModel.getDisaster(),
-                objectiveModel.getSupplies(),
-                objectiveModel.getHealth(),
-                objectiveModel.getEducation(),
-                objectiveModel.getJustice(),
-                objectiveModel.getProfessional()
-        );
-
-        if (objectExists && optional.isPresent()) {
-            return optional.get();
-        }
-
-        return objectiveRepository.save(objectiveModel);
-
+//        Boolean objectExists = objectiveRepository.existsByOtherAndDisasterAndSuppliesAndHealthAndEducationAndJusticeAndProfessional(
+//                objectiveModel.getOther(),
+//                objectiveModel.getDisaster(),
+//                objectiveModel.getSupplies(),
+//                objectiveModel.getHealth(),
+//                objectiveModel.getEducation(),
+//                objectiveModel.getJustice(),
+//                objectiveModel.getProfessional()
+//        );
+//
+//        Optional<ObjectiveModel> optional = objectiveRepository.findByAll(
+//                objectiveModel.getOther(),
+//                objectiveModel.getDisaster(),
+//                objectiveModel.getSupplies(),
+//                objectiveModel.getHealth(),
+//                objectiveModel.getEducation(),
+//                objectiveModel.getJustice(),
+//                objectiveModel.getProfessional()
+//        );
+//
+//        if (objectExists && optional.isPresent()) {
+//            return optional.get();
+//        }
+//
+//        return objectiveRepository.save(objectiveModel);
     }
 
     public CollaboratorModel getCollaborator() {
