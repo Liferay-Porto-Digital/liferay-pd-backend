@@ -1,14 +1,10 @@
 package br.com.liferay.liferaypdbackend.controllers;
 
-import br.com.liferay.liferaypdbackend.models.SolicitationModel;
 import br.com.liferay.liferaypdbackend.services.SolicitationService;
-import br.com.liferay.liferaypdbackend.services.utils.ConsoleLogUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
 
 @RestController
 @CrossOrigin(origins = "*")
