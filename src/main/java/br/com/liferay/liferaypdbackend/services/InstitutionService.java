@@ -2,6 +2,7 @@ package br.com.liferay.liferaypdbackend.services;
 
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
 import br.com.liferay.liferaypdbackend.repositories.InstitutionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,11 +14,8 @@ import java.util.Optional;
 public class InstitutionService {
 
     //region INJECTIONS
-    final InstitutionRepository institutionRepository;
-
-    public InstitutionService(InstitutionRepository institutionRepository) {
-        this.institutionRepository = institutionRepository;
-    }
+    @Autowired
+    InstitutionRepository institutionRepository;
     //endregion
 
     //region METHODS

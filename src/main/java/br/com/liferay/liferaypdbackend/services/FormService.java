@@ -13,28 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class FormService {
     //region INJECTIONS
     @Autowired
     ObjectiveRepository objectiveRepository;
-
     @Autowired
     VulnerabilityRepository vulnerabilityRepository;
-
-    final FormRepository formRepository;
-    final InstitutionRepository institutionRepository;
-    final CollaboratorRepository collaboratorRepository;
-
-    public FormService(FormRepository formRepository, InstitutionRepository institutionRepository,
-                       CollaboratorRepository collaboratorRepository) {
-        this.formRepository = formRepository;
-        this.institutionRepository = institutionRepository;
-        this.collaboratorRepository = collaboratorRepository;
-    }
+    @Autowired
+    FormRepository formRepository;
+    @Autowired
+    InstitutionRepository institutionRepository;
+    @Autowired
+    CollaboratorRepository collaboratorRepository;
     //endregion
 
     //region METHODS

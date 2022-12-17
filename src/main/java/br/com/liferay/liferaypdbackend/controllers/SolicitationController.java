@@ -1,25 +1,19 @@
 package br.com.liferay.liferaypdbackend.controllers;
 
-import br.com.liferay.liferaypdbackend.models.SolicitationModel;
 import br.com.liferay.liferaypdbackend.services.SolicitationService;
-import br.com.liferay.liferaypdbackend.services.utils.ConsoleLogUtil;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("api/v1/")
 public class SolicitationController {
     //region INJECTIONS
-    final SolicitationService solicitationService;
-
-    public SolicitationController(SolicitationService solicitationService) {
-        this.solicitationService = solicitationService;
-    }
+    @Autowired
+    SolicitationService solicitationService;
     //endregion
 
     //region ENDPOINTS

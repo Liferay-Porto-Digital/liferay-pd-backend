@@ -2,6 +2,7 @@ package br.com.liferay.liferaypdbackend.controllers;
 
 import br.com.liferay.liferaypdbackend.services.CollaboratorService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/")
 public class CollaboratorController {
     //region INJECTIONS
-    final CollaboratorService collaboratorService;
-
-    public CollaboratorController(CollaboratorService collaboratorService) {
-        this.collaboratorService = collaboratorService;
-    }
+    @Autowired
+    CollaboratorService collaboratorService;
     //endregion
 
     //region ENDPOINTS

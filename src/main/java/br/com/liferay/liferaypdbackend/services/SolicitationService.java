@@ -5,6 +5,7 @@ import br.com.liferay.liferaypdbackend.models.SolicitationModel;
 import br.com.liferay.liferaypdbackend.models.product.FormModel;
 import br.com.liferay.liferaypdbackend.repositories.SolicitationRepository;
 import br.com.liferay.liferaypdbackend.services.utils.ConsoleLogUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,11 +15,8 @@ import java.util.List;
 @Service
 public class SolicitationService {
     //region INJECTIONS
-    final SolicitationRepository solicitationRepository;
-
-    public SolicitationService(SolicitationRepository solicitationRepository) {
-        this.solicitationRepository = solicitationRepository;
-    }
+    @Autowired
+    SolicitationRepository solicitationRepository;
     //endregion
 
     //region METHODS
