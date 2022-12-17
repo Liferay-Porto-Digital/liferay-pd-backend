@@ -2,6 +2,7 @@ package br.com.liferay.liferaypdbackend.services;
 
 import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
 import br.com.liferay.liferaypdbackend.repositories.CollaboratorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,11 +11,8 @@ import java.util.List;
 @Service
 public class CollaboratorService {
     //region INJECTIONS
-    final CollaboratorRepository collaboratorRepository;
-
-    public CollaboratorService(CollaboratorRepository collaboratorRepository) {
-        this.collaboratorRepository = collaboratorRepository;
-    }
+    @Autowired
+    CollaboratorRepository collaboratorRepository;
     //endregion
 
     //region METHODS

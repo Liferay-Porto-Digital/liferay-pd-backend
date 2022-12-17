@@ -6,6 +6,7 @@ import br.com.liferay.liferaypdbackend.models.product.FormModel;
 import br.com.liferay.liferaypdbackend.services.FormService;
 import br.com.liferay.liferaypdbackend.services.utils.ConsoleLogUtil;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +20,10 @@ import java.util.Arrays;
 @RequestMapping("api/v1/")
 public class FormController {
     //region INJECTIONS
-    final FormService formService;
-    final FormFactoryMethod formFactoryMethod;
-
-    public FormController(FormService formService, FormFactoryMethod formFactoryMethod) {
-        this.formService = formService;
-        this.formFactoryMethod = formFactoryMethod;
-    }
+    @Autowired
+    FormService formService;
+    @Autowired
+    FormFactoryMethod formFactoryMethod;
     //endregion
 
     //region DESCRIPTION

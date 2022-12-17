@@ -5,6 +5,7 @@ import br.com.liferay.liferaypdbackend.services.ReportService;
 import br.com.liferay.liferaypdbackend.services.utils.ConsoleLogUtil;
 import br.com.liferay.liferaypdbackend.services.utils.ExportExcelReportUtil;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,11 +25,8 @@ import java.util.List;
 @RequestMapping("api/v1/")
 public class ReportController {
     //region INJECTIONS
-    final ReportService reportService;
-
-    public ReportController(ReportService reportService) {
-        this.reportService = reportService;
-    }
+    @Autowired
+    ReportService reportService;
     //endregion
 
     //region ENDPOINTS
@@ -38,7 +36,7 @@ public class ReportController {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(reportService.saveOrGetInstitution());
+                    .body(reportService.saveOrGetReport());
         } catch (Exception e) {
             ConsoleLogUtil.log.info(Arrays.toString(e.getStackTrace()));
             return ResponseEntity

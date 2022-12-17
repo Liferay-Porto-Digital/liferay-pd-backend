@@ -18,8 +18,6 @@ public interface InstitutionRepository extends JpaRepository<InstitutionModel, U
     @Query(value = "select institution from InstitutionModel institution where institution.name = :name")
     Optional<InstitutionModel> findByName(@Param(value = "name") String name);
 
-    // TODO: Query institutions with more and less solicitations
-
     boolean existsByRegistrationNumber(String registrationNumber);
     boolean existsByEmail(String email);
     boolean existsByPhoneNumber(String phoneNumber);
