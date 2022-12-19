@@ -1,4 +1,4 @@
-package br.com.liferay.liferaypdbackend.models.concrete_product;
+package br.com.liferay.liferaypdbackend.models.concreteProduct;
 
 import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;

@@ -4,8 +4,8 @@ import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
 import br.com.liferay.liferaypdbackend.models.ObjectiveModel;
 import br.com.liferay.liferaypdbackend.models.VulnerabilityModel;
-import br.com.liferay.liferaypdbackend.models.concrete_product.ActivityFormModel;
-import br.com.liferay.liferaypdbackend.models.concrete_product.DonationFormModel;
+import br.com.liferay.liferaypdbackend.models.concreteProduct.ActivityFormModel;
+import br.com.liferay.liferaypdbackend.models.concreteProduct.DonationFormModel;
 import br.com.liferay.liferaypdbackend.models.product.FormModel;
 import org.springframework.stereotype.Component;
 
