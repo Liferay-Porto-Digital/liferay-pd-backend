@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -22,11 +23,9 @@ public class FormController {
     //region INJECTIONS
     @Autowired
     FormService formService;
-    @Autowired
-    FormFactoryMethod formFactoryMethod;
     //endregion
 
-    //region DESCRIPTION
+    //region ENDPOINTS
     @GetMapping("form")
     @ApiOperation(value = "Get a list with all forms on the database")
     public ResponseEntity<Object> getAllForms() {
@@ -49,19 +48,9 @@ public class FormController {
 
     @PostMapping("form/add/donation")
     @ApiOperation(value = "Add a donation form on the database")
-    public ResponseEntity<Object> addDonationForm(@RequestBody FormDTO formDTO) {
+    public ResponseEntity<Object> addDonationForm(@RequestBody @Valid FormDTO formDTO) {
         try {
-            FormModel donationFormModel = formFactoryMethod.createForm(
-                    "donation",
-                    formService.getCollaborator(),
-                    formService.saveOrGetInstitution(formDTO),
-                    formService.saveOrGetObjective(formDTO),
-                    formService.saveOrGetVulnerability(formDTO),
-                    formDTO.getNameContact(),
-                    formDTO.getLastNameContact(),
-                    LocalDate.parse(formDTO.getDateOfEvent(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                    formDTO.getValue()
-            );
+            FormModel donationFormModel = formService.createFormModel("donation", formDTO);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(formService.updateInstitutionNumberOfActionsReceived(formService.save(donationFormModel)));
@@ -75,19 +64,9 @@ public class FormController {
 
     @PostMapping("form/add/activity")
     @ApiOperation(value = "Add am activity form on the database")
-    public ResponseEntity<Object> addActivityForm(@RequestBody FormDTO formDTO) {
+    public ResponseEntity<Object> addActivityForm(@RequestBody @Valid FormDTO formDTO) {
         try {
-            FormModel activityFormModel = formFactoryMethod.createForm (
-                    "activity",
-                    formService.getCollaborator(),
-                    formService.saveOrGetInstitution(formDTO),
-                    formService.saveOrGetObjective(formDTO),
-                    formService.saveOrGetVulnerability(formDTO),
-                    formDTO.getNameContact(),
-                    formDTO.getLastNameContact(),
-                    LocalDate.parse(formDTO.getDateOfEvent(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                    formDTO.getValue()
-            );
+            FormModel activityFormModel = formService.createFormModel("activity", formDTO);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(formService.updateInstitutionNumberOfActionsReceived(formService.save(activityFormModel)));
