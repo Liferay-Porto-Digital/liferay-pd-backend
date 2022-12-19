@@ -21,22 +21,13 @@ public class ReportService {
     }
 
     public ReportModel saveOrGetReport() {
-        ReportModel reportModel = new ReportModel (
-                reportRepository.countAllDonations(),
-                reportRepository.countDonationAmount(),
-                reportRepository.countDonationAmount() /
-                        reportRepository.countAllInstitutions(),
-                reportRepository.countAllActivities(),
-                reportRepository.countActivityAmount(),
-                reportRepository.countActivityAmount() /
-                        reportRepository.countAllInstitutions()
-        );
-
-        if (getReportWithSameFields().isPresent()) {
+        try {
             return getReportWithSameFields().get();
+        } catch (Exception e) {
+            ReportModel reportModel = createReportModel();
+            return save(reportModel);
         }
 
-        return save(reportModel);
     }
 
     public List<ReportModel> findAll() {
@@ -53,6 +44,42 @@ public class ReportService {
                 reportRepository.countActivityAmount(),
                 reportRepository.countActivityAmount() /
                         reportRepository.countAllInstitutions()
+        );
+    }
+
+    public ReportModel createReportModel() {
+        if (reportRepository.countAllInstitutions() != null) {
+            if (reportRepository.countAllDonations() == null && reportRepository.countAllActivities() != null) {
+                return new ReportModel (
+                        0,
+                        0.0,
+                        0.0,
+                        reportRepository.countAllActivities(),
+                        reportRepository.countActivityAmount(),
+                        reportRepository.countActivityAmount() /
+                                reportRepository.countAllInstitutions()
+                );
+            }
+            if(reportRepository.countAllActivities() == null && reportRepository.countAllDonations() != null) {
+                return new ReportModel(
+                        reportRepository.countAllDonations(),
+                        reportRepository.countDonationAmount(),
+                        reportRepository.countDonationAmount() /
+                                reportRepository.countAllInstitutions(),
+                        0,
+                        0.0,
+                        0.0
+                );
+            }
+        }
+
+        return new ReportModel (
+                0,
+                0.0,
+                0.0,
+                0,
+                0.0,
+                0.0
         );
     }
     //endregion

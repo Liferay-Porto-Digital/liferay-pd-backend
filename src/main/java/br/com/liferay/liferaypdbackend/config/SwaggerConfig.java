@@ -37,7 +37,7 @@ public class SwaggerConfig {
                 "Terms of Service",
                 new Contact("Squad Liferay Senac", "https://github.com/Liferay-Porto-Digital", "liferayportodigital@gmail.com"),
                 "Apache License Version 2.0",
-                "https://www.apache.org/license.html",
+                "https://github.com/Liferay-Porto-Digital/liferay-pd-backend/blob/main/LICENSE",
                 new ArrayList<VendorExtension>()
         );
 

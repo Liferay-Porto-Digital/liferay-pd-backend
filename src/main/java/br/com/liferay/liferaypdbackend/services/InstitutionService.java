@@ -1,9 +1,12 @@
 package br.com.liferay.liferaypdbackend.services;
 
+import br.com.liferay.liferaypdbackend.dtos.InstitutionDTO;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
 import br.com.liferay.liferaypdbackend.repositories.InstitutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,6 +77,47 @@ public class InstitutionService {
 
     public List<InstitutionModel> getInstitutionWithLessSolicitations() {
         return institutionRepository.getInstitutionListWithLessSolicitations();
+    }
+
+    public void fixInstitutionDtoFormat(InstitutionDTO institutionDTO) {
+        institutionDTO.setName(institutionDTO.getName().trim().toUpperCase());
+        institutionDTO.setStreet(institutionDTO.getStreet().trim().toUpperCase());
+        institutionDTO.setCity(institutionDTO.getCity().trim().toUpperCase());
+        institutionDTO.setState(institutionDTO.getState().trim().toUpperCase());
+        institutionDTO.setDescription(institutionDTO.getDescription().trim().toUpperCase());
+        institutionDTO.setEmail(institutionDTO.getEmail().trim());
+        institutionDTO.setUrl(institutionDTO.getUrl().trim());
+    }
+
+    public ResponseEntity<Object> verifyInstitutionFields(InstitutionDTO institutionDTO) {
+        if (existsByRegistrationNumber(institutionDTO.getRegistrationNumber())) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("CONFLICT: Registration Number already belongs to an existing institution");
+        }
+        if (existsByEmail(institutionDTO.getEmail())) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("CONFLICT: Email already belongs to an existing institution");
+        }
+        if (existsByPhoneNumber(institutionDTO.getPhoneNumber())) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("CONFLICT: Phone Number already belongs to an existing institution");
+        }
+        if (existsByUrl(institutionDTO.getUrl())) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("CONFLICT: URL already belongs to an existing institution");
+        }
+        if (existsByName(institutionDTO.getName())) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("CONFLICT: Name already belongs to an existing institution");
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("OK: All fields according to rules");
     }
     //endregion
 }

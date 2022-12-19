@@ -6,12 +6,15 @@ import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
 import br.com.liferay.liferaypdbackend.models.ObjectiveModel;
 import br.com.liferay.liferaypdbackend.models.VulnerabilityModel;
+import br.com.liferay.liferaypdbackend.models.creator.FormFactoryMethod;
 import br.com.liferay.liferaypdbackend.models.product.FormModel;
 import br.com.liferay.liferaypdbackend.repositories.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -27,6 +30,8 @@ public class FormService {
     InstitutionRepository institutionRepository;
     @Autowired
     CollaboratorRepository collaboratorRepository;
+    @Autowired
+    FormFactoryMethod formFactoryMethod;
     //endregion
 
     //region METHODS
@@ -71,26 +76,6 @@ public class FormService {
                 formDTO.getHomelessVulnerability(),
                 formDTO.getOtherVulnerability().trim().toUpperCase()
         ));
-
-//        Boolean vulnerabilityExists = vulnerabilityRepository.existsByOtherAndMonetaryAndHealthAndHomeless(
-//                formDTO.getOtherVulnerability(),
-//                formDTO.getMonetaryVulnerability(),
-//                formDTO.getHealthVulnerability(),
-//                formDTO.getHomelessVulnerability()
-//        );
-//
-//        Optional<VulnerabilityModel> optional = vulnerabilityRepository.findByAll(
-//            vulnerabilityModel.getOther(),
-//            vulnerabilityModel.getMonetary(),
-//            vulnerabilityModel.getHealth(),
-//            vulnerabilityModel.getHomeless()
-//        );
-//
-//        if (vulnerabilityExists && optional.isPresent()) {
-//            return optional.get();
-//        }
-//
-//        return vulnerabilityRepository.save(vulnerabilityModel);
     }
 
     public ObjectiveModel saveOrGetObjective(FormDTO formDTO) {
@@ -103,32 +88,6 @@ public class FormService {
                 formDTO.getProfessionalObjective(),
                 formDTO.getOtherObjective().trim().toUpperCase()
         ));
-
-//        Boolean objectExists = objectiveRepository.existsByOtherAndDisasterAndSuppliesAndHealthAndEducationAndJusticeAndProfessional(
-//                objectiveModel.getOther(),
-//                objectiveModel.getDisaster(),
-//                objectiveModel.getSupplies(),
-//                objectiveModel.getHealth(),
-//                objectiveModel.getEducation(),
-//                objectiveModel.getJustice(),
-//                objectiveModel.getProfessional()
-//        );
-//
-//        Optional<ObjectiveModel> optional = objectiveRepository.findByAll(
-//                objectiveModel.getOther(),
-//                objectiveModel.getDisaster(),
-//                objectiveModel.getSupplies(),
-//                objectiveModel.getHealth(),
-//                objectiveModel.getEducation(),
-//                objectiveModel.getJustice(),
-//                objectiveModel.getProfessional()
-//        );
-//
-//        if (objectExists && optional.isPresent()) {
-//            return optional.get();
-//        }
-//
-//        return objectiveRepository.save(objectiveModel);
     }
 
     public CollaboratorModel getCollaborator() {
@@ -151,6 +110,20 @@ public class FormService {
         formModel.getInstitution().setNumberOfActionsReceived(numberOfActionsReceived);
 
         return formModel;
+    }
+
+    public FormModel createFormModel(String typeOfForm, FormDTO formDTO) {
+        return formFactoryMethod.createForm (
+                typeOfForm,
+                getCollaborator(),
+                saveOrGetInstitution(formDTO),
+                saveOrGetObjective(formDTO),
+                saveOrGetVulnerability(formDTO),
+                formDTO.getNameContact(),
+                formDTO.getLastNameContact(),
+                LocalDate.parse(formDTO.getDateOfEvent(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                formDTO.getValue()
+        );
     }
     //endregion
 }

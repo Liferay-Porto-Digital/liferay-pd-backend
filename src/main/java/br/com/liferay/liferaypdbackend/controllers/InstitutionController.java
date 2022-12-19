@@ -46,7 +46,7 @@ public class InstitutionController {
 
     @GetMapping("institution/{name}")
     @ApiOperation(value = "Returns the institution filtered by the given name")
-    public ResponseEntity<Object> findInstitutionByName(@RequestBody @Valid @PathVariable(value = "name") String name) {
+    public ResponseEntity<Object> findInstitutionByName(@RequestBody @PathVariable(value = "name") String name) {
         if (institutionService.findByName(name.trim().toUpperCase()).isPresent()) {
             return ResponseEntity
                     .status(HttpStatus.FOUND)
@@ -87,39 +87,12 @@ public class InstitutionController {
     @ApiOperation(value = "Add new institution on the database")
     public ResponseEntity<Object> addInstitution(@RequestBody @Valid InstitutionDTO institutionDTO) {
         try {
-            institutionDTO.setName(institutionDTO.getName().trim().toUpperCase());
-            institutionDTO.setStreet(institutionDTO.getStreet().trim().toUpperCase());
-            institutionDTO.setCity(institutionDTO.getCity().trim().toUpperCase());
-            institutionDTO.setState(institutionDTO.getState().trim().toUpperCase());
-            institutionDTO.setDescription(institutionDTO.getDescription().trim().toUpperCase());
-            institutionDTO.setEmail(institutionDTO.getEmail().trim());
-            institutionDTO.setUrl(institutionDTO.getUrl().trim());
+            institutionService.fixInstitutionDtoFormat(institutionDTO);
 
-            // TODO: Make and call method of verification in order to implement less code on the controller
-            if (institutionService.existsByRegistrationNumber(institutionDTO.getRegistrationNumber())) {
-                return ResponseEntity
-                        .status(HttpStatus.CONFLICT)
-                        .body("CONFLICT: Registration Number already belongs to an existing institution");
-            }
-            if (institutionService.existsByEmail(institutionDTO.getEmail())) {
-                return ResponseEntity
-                        .status(HttpStatus.CONFLICT)
-                        .body("CONFLICT: Email already belongs to an existing institution");
-            }
-            if (institutionService.existsByPhoneNumber(institutionDTO.getPhoneNumber())) {
-                return ResponseEntity
-                        .status(HttpStatus.CONFLICT)
-                        .body("CONFLICT: Phone Number already belongs to an existing institution");
-            }
-            if (institutionService.existsByUrl(institutionDTO.getUrl())) {
-                return ResponseEntity
-                        .status(HttpStatus.CONFLICT)
-                        .body("CONFLICT: URL already belongs to an existing institution");
-            }
-            if (institutionService.existsByName(institutionDTO.getName())) {
-                return ResponseEntity
-                        .status(HttpStatus.CONFLICT)
-                        .body("CONFLICT: Name already belongs to an existing institution");
+            ResponseEntity<Object> verification = institutionService.verifyInstitutionFields(institutionDTO);
+
+            if(!verification.getStatusCode().equals(HttpStatus.OK)) {
+                return verification;
             }
 
             InstitutionModel institutionModel = new InstitutionModel();
