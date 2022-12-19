@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Arrays;
 
 @RestController
@@ -45,7 +44,7 @@ public class FormController {
 
     @PostMapping("form/add/donation")
     @ApiOperation(value = "Add a donation form on the database")
-    public ResponseEntity<Object> addDonationForm(@RequestBody @Valid FormDTO formDTO) {
+    public ResponseEntity<Object> addDonationForm(@RequestBody FormDTO formDTO) {
         try {
             FormModel donationFormModel = formService.createFormModel("donation", formDTO);
             return ResponseEntity
@@ -61,7 +60,7 @@ public class FormController {
 
     @PostMapping("form/add/activity")
     @ApiOperation(value = "Add am activity form on the database")
-    public ResponseEntity<Object> addActivityForm(@RequestBody @Valid FormDTO formDTO) {
+    public ResponseEntity<Object> addActivityForm(@RequestBody FormDTO formDTO) {
         try {
             FormModel activityFormModel = formService.createFormModel("activity", formDTO);
             return ResponseEntity
