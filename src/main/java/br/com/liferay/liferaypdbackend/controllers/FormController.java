@@ -1,7 +1,6 @@
 package br.com.liferay.liferaypdbackend.controllers;
 
 import br.com.liferay.liferaypdbackend.dtos.FormDTO;
-import br.com.liferay.liferaypdbackend.models.creator.FormFactoryMethod;
 import br.com.liferay.liferaypdbackend.models.product.FormModel;
 import br.com.liferay.liferaypdbackend.services.FormService;
 import br.com.liferay.liferaypdbackend.services.utils.ConsoleLogUtil;
@@ -12,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 @RestController
