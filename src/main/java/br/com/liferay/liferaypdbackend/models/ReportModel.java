@@ -20,18 +20,17 @@ public class ReportModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    private Integer numberOfDonations;
+    private Integer numberOfDonations = 0;
 
-    private Double amountDonated;
+    private Double amountDonated = 0.0;
 
-    private Double donationsPerInstitution;
+    private Double donationsPerInstitution = 0.0;
 
-    private Integer numberOfActivities;
+    private Integer numberOfActivities = 0;
 
-    private Double amountDoneActivity;
-    //a soma das atividades deveria ser em horas, acho que o tipo double não representa
+    private Double amountDoneActivity = 0.0;
 
-    private Double activityPerInstitution;
+    private Double activityPerInstitution = 0.0;
 
     private LocalDateTime reportUpdateDate;
     //endregion
