@@ -3,7 +3,7 @@ package br.com.liferay.liferaypdbackend.services;
 import br.com.liferay.liferaypdbackend.dtos.FormDTO;
 import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
-import br.com.liferay.liferaypdbackend.models.concreteProduct.ActivityFormModel;
+import br.com.liferay.liferaypdbackend.models.concrete_product.ActivityFormModel;
 import br.com.liferay.liferaypdbackend.models.product.FormModel;
 import br.com.liferay.liferaypdbackend.repositories.CollaboratorRepository;
 import br.com.liferay.liferaypdbackend.repositories.FormRepository;

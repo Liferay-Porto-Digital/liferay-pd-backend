@@ -1,4 +1,4 @@
-package br.com.liferay.liferaypdbackend.models.concreteProduct;
+package br.com.liferay.liferaypdbackend.models.concrete_product;
 
 import br.com.liferay.liferaypdbackend.models.CollaboratorModel;
 import br.com.liferay.liferaypdbackend.models.InstitutionModel;
@@ -11,13 +11,13 @@ import javax.persistence.Entity;
 import java.time.LocalDate;
 
 /**
- * Class that represents activity forms
+ * Class that represents donation forms
  */
 @Entity
 @NoArgsConstructor
-public class ActivityFormModel extends FormModel {
+public class DonationFormModel extends FormModel {
     //region CONSTRUCTORS
-    public ActivityFormModel(
+    public DonationFormModel(
             String typeOfForm,
             CollaboratorModel formCreator,
             InstitutionModel destinedInstitutionModel,
